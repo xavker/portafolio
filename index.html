@@ -1,4 +1,743 @@
-Sistemas Digitales</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Sistema Documental Quipux</h4></div>
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leonardo Xavier Ramón Poma | M.Sc. Automatización & Control Industrial</title>
+    <meta name="description" content="Hoja de Vida y Perfil Profesional de Leonardo Xavier Ramón Poma - Magíster en Automatización Industrial e Ingeniero en Electrónica y Control con más de 12 años de trayectoria en EP Petroecuador.">
+    <meta name="author" content="Leonardo Xavier Ramón Poma">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind Config for Custom Cyberpunk Colors -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#070b14',
+                            card: '#0d1527',
+                            border: '#1e293b',
+                            neon: '#00f2fe',
+                            electric: '#4facfe',
+                            emerald: '#10b981',
+                            purple: '#8b5cf6',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .neon-glow {
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.6), 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+        .neon-box-glow {
+            box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.25), inset 0 0 15px -5px rgba(0, 242, 254, 0.15);
+        }
+        .neon-box-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+        }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+        }
+        .cyber-gradient {
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #8b5cf6 100%);
+        }
+        .cyber-glass {
+            background: rgba(13, 21, 39, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.15);
+        }
+        .cyber-glass:hover {
+            border-color: rgba(0, 242, 254, 0.4);
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(1.05); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #070b14;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00f2fe;
+        }
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .cyber-glass { background: white !important; border: 1px solid #ccc !important; color: black !important; }
+            .text-slate-300, .text-slate-400 { color: #333 !important; }
+            .neon-glow, .cyber-gradient { text-shadow: none !important; -webkit-text-fill-color: initial !important; color: #000 !important; }
+        }
+    </style>
+</head>
+<body class="bg-cyber-bg text-slate-200 font-sans min-h-screen cyber-grid selection:bg-cyan-500 selection:text-black relative overflow-x-hidden">
+
+    <!-- Interactive Canvas Background -->
+    <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
+
+    <!-- Ambient Light Glows -->
+    <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
+    <div class="fixed top-1/3 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 2s;"></div>
+
+    <!-- Navigation Header -->
+    <header class="sticky top-0 z-50 cyber-glass border-b border-cyan-500/20 px-4 lg:px-8 py-3.5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <a href="#hero" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyan-400 flex items-center justify-center font-display font-black text-cyan-400 group-hover:scale-105 transition-transform shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    LXR
+                </div>
+                <div>
+                    <div class="font-display text-sm font-bold text-white tracking-wider flex items-center gap-2">
+                        LEONARDO RAMÓN <span class="text-xs text-cyan-400 font-mono font-normal">// M.Sc.</span>
+                    </div>
+                    <div class="text-[10px] text-slate-400 font-mono flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span class="text-emerald-400 font-semibold">SISTEMA ACTIVO</span> | EP PETROECUADOR
+                    </div>
+                </div>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-6 text-xs font-mono tracking-wide text-slate-300">
+                <a href="#perfil" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><span class="text-cyan-500">01.</span> PERFIL</a>
+                <a href="#experiencia" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><span class="text-cyan-500">02.</span> TRAYECTORIA</a>
+                <a href="#competencias" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><span class="text-cyan-500">03.</span> COMPETENCIAS</a>
+                <a href="#capacitaciones" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><span class="text-cyan-500">04.</span> CAPACITACIONES</a>
+                <a href="#contacto" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5"><span class="text-cyan-500">05.</span> CONTACTO</a>
+            </nav>
+
+            <div class="flex items-center gap-3 no-print">
+                <button onclick="window.print()" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900/80 text-xs font-mono hover:border-cyan-400 hover:text-cyan-400 transition-all">
+                    <i class="fa-solid fa-print"></i> <span>Imprimir CV</span>
+                </button>
+                <a href="https://wa.me/593979724195" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-semibold text-xs font-mono hover:shadow-[0_0_20px_rgba(0,242,254,0.6)] hover:brightness-110 transition-all">
+                    <i class="fa-brands fa-whatsapp text-sm text-black"></i> <span>Conectar</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24">
+
+        <!-- HERO SECTION -->
+        <section id="hero" class="pt-6 pb-12 flex flex-col lg:flex-row items-center justify-between gap-12">
+            <div class="flex-1 space-y-6">
+                <div class="inline-flex items-center gap-2.5 px-3 py-1.5 rounded-full cyber-glass border border-cyan-500/30 text-xs font-mono text-cyan-300">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00f2fe]"></span>
+                    <span>INGENIERÍA &bull; AUTOMATIZACIÓN &bull; CONTROL INDUSTRIAL</span>
+                </div>
+
+                <div class="space-y-2">
+                    <h1 class="text-4xl sm:text-6xl font-display font-extrabold tracking-tight text-white leading-none">
+                        LEONARDO XAVIER<br>
+                        <span class="text-transparent bg-clip-text cyber-gradient neon-glow">RAMÓN POMA</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl font-mono text-cyan-400 font-medium">
+                        Magíster en Automatización Industrial | Ing. Electrónica y Control
+                    </p>
+                </div>
+
+                <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl">
+                    Líder técnico con más de <strong class="text-white font-semibold">12 años de trayectoria en EP Petroecuador</strong> especializado en supervisión operativa, instrumentación de campo, sistemas de control distribuido (<strong class="text-cyan-300">DeltaV</strong>), gestión de mantenimiento bajo <strong class="text-cyan-300">IBM Maximo EAM</strong> y operación de depósitos y terminales petroleras con altos estándares de seguridad y sostenibilidad (HSE).
+                </p>
+
+                <div class="flex flex-wrap gap-2.5 pt-2 text-xs font-mono">
+                    <span class="px-3 py-1 rounded bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-microchip text-cyan-400"></i> DCS DeltaV & SCADA
+                    </span>
+                    <span class="px-3 py-1 rounded bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gears text-cyan-400"></i> IBM Maximo EAM
+                    </span>
+                    <span class="px-3 py-1 rounded bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gas-pump text-cyan-400"></i> Operaciones Petroleras
+                    </span>
+                    <span class="px-3 py-1 rounded bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center gap-1.5">
+                        <i class="fa-solid fa-shield-halved text-emerald-400"></i> Normas ISO / OHSAS
+                    </span>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-4 pt-4 no-print">
+                    <a href="#experiencia" class="px-6 py-3 rounded-lg bg-cyan-400 text-slate-950 font-bold text-sm font-mono flex items-center gap-2 hover:bg-cyan-300 hover:shadow-[0_0_25px_rgba(0,242,254,0.5)] transition-all">
+                        <i class="fa-solid fa-timeline"></i> Ver Trayectoria
+                    </a>
+                    <a href="#contacto" class="px-6 py-3 rounded-lg cyber-glass border border-cyan-500/40 text-cyan-300 font-semibold text-sm font-mono flex items-center gap-2 hover:border-cyan-400 hover:text-white transition-all">
+                        <i class="fa-solid fa-envelope"></i> Contactar
+                    </a>
+                    <a href="mailto:xavier.ramon@eppetroecuador.ec" class="px-4 py-3 rounded-lg bg-slate-900/80 border border-slate-700 text-slate-300 text-sm hover:text-cyan-400 transition-colors" title="Enviar Correo Institucional">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Profile HUD Card -->
+            <div class="w-full lg:w-96 flex-shrink-0">
+                <div class="cyber-glass rounded-2xl p-6 relative border border-cyan-500/30 neon-box-glow space-y-6">
+                    <div class="flex items-center justify-between text-[11px] font-mono text-cyan-400/80 border-b border-cyan-500/20 pb-3">
+                        <span class="flex items-center gap-1"><i class="fa-solid fa-id-badge"></i> DATOS_TITULAR</span>
+                        <span>ROL #55307</span>
+                    </div>
+
+                    <div class="space-y-3.5 text-xs font-mono">
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Identificación:</span>
+                            <span class="text-white font-semibold">1721485173</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Organización:</span>
+                            <span class="text-cyan-300 font-semibold text-right">EP PETROECUADOR</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Gerencia:</span>
+                            <span class="text-slate-200 text-right">Transporte</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Cargo Actual:</span>
+                            <span class="text-emerald-400 font-semibold text-right">Técnico Líder de Depósito</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Ubicación:</span>
+                            <span class="text-slate-200 text-right">Depósito La Toma, Catamayo</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Régimen Laboral:</span>
+                            <span class="text-slate-300">8 días trab. / 6 días desc.</span>
+                        </div>
+                        <div class="flex items-start justify-between">
+                            <span class="text-slate-400">Tiempo de Servicio:</span>
+                            <span class="text-cyan-400 font-bold">+12 Años Continuos</span>
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-cyan-500/20 space-y-2 text-xs font-mono">
+                        <a href="mailto:xavier.ramon@eppetroecuador.ec" class="flex items-center gap-2 text-slate-300 hover:text-cyan-300 transition-colors">
+                            <i class="fa-solid fa-at text-cyan-400 w-4"></i> xavier.ramon@eppetroecuador.ec
+                        </a>
+                        <a href="tel:+593979724195" class="flex items-center gap-2 text-slate-300 hover:text-cyan-300 transition-colors">
+                            <i class="fa-solid fa-phone text-cyan-400 w-4"></i> (09) 7972-4195 / +593 97 972 4195
+                        </a>
+                        <div class="flex items-center gap-2 text-slate-400">
+                            <i class="fa-solid fa-location-dot text-cyan-400 w-4"></i> Celica, Loja, Ecuador
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- KPI / METRICS SECTION -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            <div class="cyber-glass rounded-xl p-5 border border-cyan-500/20 text-center hover:border-cyan-400 transition-all group">
+                <div class="text-3xl sm:text-4xl font-display font-extrabold text-cyan-400 group-hover:scale-110 transition-transform">12+</div>
+                <div class="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">Años de Trayectoria</div>
+                <div class="text-[11px] text-cyan-500/80 font-mono mt-0.5">EP Petroecuador (2014-2026)</div>
+            </div>
+            <div class="cyber-glass rounded-xl p-5 border border-emerald-500/20 text-center hover:border-emerald-400 transition-all group">
+                <div class="text-3xl sm:text-4xl font-display font-extrabold text-emerald-400 group-hover:scale-110 transition-transform">104</div>
+                <div class="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">Capacitaciones & Cursos</div>
+                <div class="text-[11px] text-emerald-500/80 font-mono mt-0.5">Técnicas, HSE & Gestión</div>
+            </div>
+            <div class="cyber-glass rounded-xl p-5 border border-blue-500/20 text-center hover:border-blue-400 transition-all group">
+                <div class="text-3xl sm:text-4xl font-display font-extrabold text-blue-400 group-hover:scale-110 transition-transform">2</div>
+                <div class="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">Títulos de Alto Nivel</div>
+                <div class="text-[11px] text-blue-400/80 font-mono mt-0.5">Maestría & Ing. Electrónica</div>
+            </div>
+            <div class="cyber-glass rounded-xl p-5 border border-purple-500/20 text-center hover:border-purple-400 transition-all group">
+                <div class="text-3xl sm:text-4xl font-display font-extrabold text-purple-400 group-hover:scale-110 transition-transform">100%</div>
+                <div class="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">Cumplimiento Operativo</div>
+                <div class="text-[11px] text-purple-400/80 font-mono mt-0.5">Auditorías e Integridad HSE</div>
+            </div>
+        </section>
+
+        <!-- 01. PERFIL & TERMINAL -->
+        <section id="perfil" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="text-cyan-400 font-mono text-lg font-bold">01.</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">PERFIL PROFESIONAL & MISIÓN</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <div class="lg:col-span-7 cyber-glass rounded-2xl p-6 sm:p-8 space-y-4">
+                    <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-astronaut text-cyan-400"></i> Especialista en Automatización & Operaciones
+                    </h3>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Profesional de la ingeniería con una sólida formación en automatización, control automático e instrumentación industrial, complementada con un título de cuarto nivel de <strong>Magíster en Ingeniería</strong>. Cuenta con una trayectoria ininterrumpida de más de 12 años desempeñando cargos de liderazgo técnico en la <strong>Gerencia de Transporte de EP Petroecuador</strong>.
+                    </p>
+                    <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+                        Posee una amplia experiencia en la supervisión de operaciones hidrocarburíferas, programación y mantenimiento de sistemas de control distribuido (DCS DeltaV), mantenimiento predictivo/correctivo gestionado a través de IBM Maximo EAM, y dirección de equipos humanos bajo estrictas normativas de seguridad y salud ocupacional (OHSAS 18001/ISO 45001), gestión ambiental (ISO 14001) y antisoborno (ISO 37001).
+                    </p>
+                    <div class="pt-3 flex flex-wrap gap-2 text-xs font-mono text-cyan-300">
+                        <span class="px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-700/50">#LiderazgoOperativo</span>
+                        <span class="px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-700/50">#DeltaV_DCS</span>
+                        <span class="px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-700/50">#MaximoEAM</span>
+                        <span class="px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-700/50">#IoTIndustrial</span>
+                        <span class="px-2.5 py-1 rounded bg-cyan-950/60 border border-cyan-700/50">#HSE_ISO37001</span>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 cyber-glass rounded-2xl p-5 border border-slate-800 flex flex-col justify-between font-mono text-xs">
+                    <div>
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400">
+                            <div class="flex items-center gap-1.5">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                            </div>
+                            <span class="text-[10px] text-cyan-400">lxr_engineer@system:~</span>
+                        </div>
+                        <div class="mt-4 space-y-2 text-slate-300">
+                            <p class="text-cyan-400">$ sys_info --spec</p>
+                            <p class="text-slate-400">&gt; Estado: <span class="text-emerald-400">DISPONIBLE / EN SERVICIO</span></p>
+                            <p class="text-slate-400">&gt; Especialidad: <span class="text-white">Automatización, Instrumentación & SCADA</span></p>
+                            <p class="text-slate-400">&gt; Plataformas DCS: <span class="text-cyan-300">Emerson DeltaV, Allen Bradley, Siemens</span></p>
+                            <p class="text-slate-400">&gt; EAM / CMMS: <span class="text-cyan-300">IBM Maximo (Órdenes, Planes, Cierres)</span></p>
+                            <p class="text-slate-400">&gt; Idiomas: <span class="text-white">Español (Nativo) | Inglés (Suficiencia)</span></p>
+                            <p class="text-slate-400">&gt; Ubicación Base: <span class="text-slate-200">Celica / Catamayo, Loja, EC</span></p>
+                            <p class="text-cyan-400">$ check_security_clearance</p>
+                            <p class="text-emerald-400">&gt; Permisos de Trabajo & ART: VALIDADOS [OK]</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] text-slate-500 flex items-center justify-between">
+                        <span>Terminal v3.4.2 [Online]</span>
+                        <span class="text-cyan-400">Ping: 14ms</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 02. TRAYECTORIA LABORAL -->
+        <section id="experiencia" class="space-y-8">
+            <div class="flex items-center gap-3">
+                <span class="text-cyan-400 font-mono text-lg font-bold">02.</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">EXPERIENCIA LABORAL INTERNA</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
+            </div>
+
+            <div class="relative border-l-2 border-cyan-500/30 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-12">
+                
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-emerald-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_12px_#10b981]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                    </div>
+                    
+                    <div class="cyber-glass rounded-2xl p-6 sm:p-7 space-y-4 border border-emerald-500/30 hover:border-emerald-400 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">CARGO ACTUAL</span>
+                                <h3 class="text-xl font-bold text-white mt-1">Técnico Líder de Depósito</h3>
+                                <p class="text-cyan-400 text-sm font-mono">EP Petroecuador &bull; Jefatura de Depósito La Toma (Catamayo, Loja)</p>
+                            </div>
+                            <div class="text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
+                                <i class="fa-regular fa-calendar-days text-emerald-400 mr-1.5"></i> 1 año - 2 meses (En curso)
+                            </div>
+                        </div>
+                        <ul class="space-y-2.5 text-slate-300 text-sm list-disc list-inside">
+                            <li>Liderazgo operativo integral del depósito de almacenamiento y despacho de combustibles limpios.</li>
+                            <li>Supervisión de recepción, almacenamiento, control volumétrico, calibración de tanques y despacho seguro a autotanques.</li>
+                            <li>Coordinación de personal operativo en jornadas 8x6, garantizando continuidad ininterrumpida del servicio.</li>
+                            <li>Aseguramiento de protocolos de seguridad industrial (ART, Permisos de Trabajo, brigadas de contingencia).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-cyan-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_12px_#00f2fe]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                    </div>
+
+                    <div class="cyber-glass rounded-2xl p-6 sm:p-7 space-y-4 border border-cyan-500/30 hover:border-cyan-400 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <span class="px-2.5 py-0.5 rounded text-[11px] font-mono bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">TRAYECTORIA PRINCIPAL</span>
+                                <h3 class="text-xl font-bold text-white mt-1">Técnico Líder de Instrumentación y Control</h3>
+                                <p class="text-cyan-400 text-sm font-mono">EP Petroecuador &bull; Gerencia de Transporte</p>
+                            </div>
+                            <div class="text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
+                                <i class="fa-regular fa-calendar-days text-cyan-400 mr-1.5"></i> 11 años - 2 meses - 2 días
+                            </div>
+                        </div>
+                        <ul class="space-y-2.5 text-slate-300 text-sm list-disc list-inside">
+                            <li>Mantenimiento preventivo, correctivo y predictivo de sistemas de control distribuido (DCS DeltaV) y lazos de control automático.</li>
+                            <li>Calibración y configuración de instrumentos de medición de campo (presión, temperatura, flujo, nivel, densidad y válvulas de control).</li>
+                            <li>Planificación y ejecución de órdenes de trabajo (OT) a través de la plataforma IBM Maximo EAM.</li>
+                            <li>Diagnóstico y resolución de fallas en arquitecturas de red industrial, telemetría y comunicación serial/Ethernet.</li>
+                            <li>Implementación de mejoras de automatización y modernización de equipos electromecánicos e instrumentación.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[31px] sm:-left-[47px] top-1.5 w-5 h-5 rounded-full bg-slate-900 border-2 border-purple-400 flex items-center justify-center group-hover:scale-125 transition-transform shadow-[0_0_12px_#8b5cf6]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+                    </div>
+
+                    <div class="cyber-glass rounded-2xl p-6 sm:p-7 space-y-4 border border-purple-500/30 hover:border-purple-400 transition-all">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-xl font-bold text-white">Técnico Líder de Control</h3>
+                                <p class="text-cyan-400 text-sm font-mono">EP Petroecuador</p>
+                            </div>
+                            <div class="text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 self-start sm:self-auto">
+                                <i class="fa-regular fa-calendar-days text-purple-400 mr-1.5"></i> 2 meses - 31 días
+                            </div>
+                        </div>
+                        <ul class="space-y-2.5 text-slate-300 text-sm list-disc list-inside">
+                            <li>Supervisión y control automático de potencia y fuerza a nivel de baja y media tensión en instalaciones industriales.</li>
+                            <li>Monitoreo de parámetros eléctricos y control de pérdidas en sistemas auxiliares de bombeo y almacenamiento.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- 03. FORMACIÓN ACADÉMICA -->
+        <section id="formacion" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="text-cyan-400 font-mono text-lg font-bold">03.</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">FORMACIÓN ACADÉMICA</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="cyber-glass rounded-2xl p-6 sm:p-7 border border-cyan-500/30 relative overflow-hidden group hover:border-cyan-400 transition-all">
+                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded bg-cyan-500/20 text-cyan-300 text-xs font-mono border border-cyan-500/40">POSTGRADO / MAESTRÍA</span>
+                        <span class="text-xs text-emerald-400 font-mono font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> COMPLETO</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mt-4">Magíster en Ingeniería - Automatización Industrial</h3>
+                    <p class="text-cyan-400 text-sm font-mono mt-1">Título de Cuarto Nivel Registrado</p>
+                    <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                        Especialización avanzada en control óptimo, sistemas Scada, redes industriales, modelado y control de procesos continuos y manufactura avanzada.
+                    </p>
+                </div>
+
+                <div class="cyber-glass rounded-2xl p-6 sm:p-7 border border-purple-500/30 relative overflow-hidden group hover:border-purple-400 transition-all">
+                    <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded bg-purple-500/20 text-purple-300 text-xs font-mono border border-purple-500/40">EDUCACIÓN SUPERIOR</span>
+                        <span class="text-xs text-emerald-400 font-mono font-semibold"><i class="fa-solid fa-circle-check mr-1"></i> COMPLETO</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mt-4">Ingeniero en Electrónica, Automatización y Control</h3>
+                    <p class="text-cyan-400 text-sm font-mono mt-1">Título de Tercer Nivel Registrado</p>
+                    <p class="text-slate-300 text-xs mt-3 leading-relaxed">
+                        Formación integral en circuitos electrónicos, microcontroladores, instrumentación de medición analógica/digital, robótica y programación de PLC.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04. COMPETENCIAS TÉCNICAS -->
+        <section id="competencias" class="space-y-6">
+            <div class="flex items-center gap-3">
+                <span class="text-cyan-400 font-mono text-lg font-bold">04.</span>
+                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">MATRIZ DE COMPETENCIAS</h2>
+                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="cyber-glass rounded-xl p-6 space-y-4 border border-cyan-500/20">
+                    <div class="w-10 h-10 rounded-lg bg-cyan-950/80 border border-cyan-500/40 flex items-center justify-center text-cyan-400 text-lg">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Automatización & DCS</h3>
+                    <ul class="space-y-2 text-xs font-mono text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Sistema DeltaV (Emerson)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Lazos de Control PID y Lógica PLC</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Calibración de Transmisores</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> SCADA & Telemetría Industrial</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-cyan-400"></i> Control Automático & Fuerza</li>
+                    </ul>
+                </div>
+
+                <div class="cyber-glass rounded-xl p-6 space-y-4 border border-emerald-500/20">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-lg">
+                        <i class="fa-solid fa-warehouse"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">Operaciones & Mantenimiento</h3>
+                    <ul class="space-y-2 text-xs font-mono text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> IBM Maximo EAM (Plan / Cierre)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Operación de Terminales y Depósitos</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Control de Pérdidas y Balances</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Inspección de Productos</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Supervisión y Monitoreo 24/7</li>
+                    </ul>
+                </div>
+
+                <div class="cyber-glass rounded-xl p-6 space-y-4 border border-purple-500/20">
+                    <div class="w-10 h-10 rounded-lg bg-purple-950/80 border border-purple-500/40 flex items-center justify-center text-purple-400 text-lg">
+                        <i class="fa-solid fa-shield-virus"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white">HSE, Normas & Tech</h3>
+                    <ul class="space-y-2 text-xs font-mono text-slate-300">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Permisos de Trabajo & ART</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> ISO 14001 / OHSAS 18001 / ISO 37001</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> IoT & Firmware (ESP32, Arduino)</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> Redes Wireless & Antenas</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-check text-purple-400"></i> AutoCAD 2D & 3D Industrial</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 05. CAPACITACIONES & CURSOS (100% PRE-RENDERIZADAS) -->
+        <section id="capacitaciones" class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <div class="flex items-center gap-3">
+                    <span class="text-cyan-400 font-mono text-lg font-bold">05.</span>
+                    <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">CAPACITACIONES & CURSOS</h2>
+                </div>
+                <div class="text-xs font-mono text-cyan-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <span>Total Registrado: <strong id="course-count" class="text-white">104 capacitaciones</strong></span>
+                </div>
+            </div>
+
+            <!-- Interactive Search & Filter Bar -->
+            <div class="cyber-glass rounded-xl p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
+                <div class="relative w-full sm:w-96">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="course-search" placeholder="Buscar curso (ej. Delta V, Maximo, Riesgos, IoT)..." class="w-full bg-slate-950/80 border border-slate-700 rounded-lg pl-9 pr-4 py-2 text-xs font-mono text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+                </div>
+
+                <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                    <button type="button" onclick="filterCategory(this, 'all')" class="filter-btn active px-3 py-1.5 rounded-md text-xs font-mono bg-cyan-500 text-black font-semibold transition-all">Todos (104)</button>
+                    <button type="button" onclick="filterCategory(this, 'control')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Automatización</button>
+                    <button type="button" onclick="filterCategory(this, 'maximo')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Maximo EAM</button>
+                    <button type="button" onclick="filterCategory(this, 'hse')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Seguridad / HSE</button>
+                    <button type="button" onclick="filterCategory(this, 'tech')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Tecnología & IT</button>
+                    <button type="button" onclick="filterCategory(this, 'legal')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Normativa / Ética</button>
+                </div>
+            </div>
+
+            <!-- Pre-rendered Static Grid with Scrollbar -->
+            <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[600px] overflow-y-auto pr-2 border border-slate-800/40 rounded-xl p-3 bg-slate-950/40">
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="01 excepcionalidad del convenio de pago legal / normativa legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #01</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Legal / Normativa</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Excepcionalidad Del Convenio De Pago</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="02 norma iso 37001 antisoborno seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #02</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Norma Iso 37001 Antisoborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="03 fundamentos de la ley orgánica para impulsar la economía legal / normativa legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #03</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Legal / Normativa</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos De La Ley Orgánica Para Impulsar La Economía</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="04 uso y mantenimiento de equipos de protección individual (epp) seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-hard-hat"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #04</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Uso Y Mantenimiento De Equipos De Protección Individual (EPP)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="05 permisos de trabajo y análisis de riesgos tarea (art) seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #05</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Permisos De Trabajo Y Análisis De Riesgos Tarea (ART)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="06 descarbonización y gestión de la energía automatización & energía control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #06</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Automatización & Energía</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Descarbonización Y Gestión De La Energía</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="maximo" data-search="07 gestión por procesos gestión & procesos maximo">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-emerald-400 border-emerald-500/30 bg-emerald-950/50"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #07</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-emerald-400 border-emerald-500/30 bg-emerald-950/50">Gestión & Procesos</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Gestión Por Procesos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="08 riesgo ergonómico seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-person-falling"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #08</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Riesgo Ergonómico</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="09 política antisoborno ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-handshake-slash"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #09</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Política Antisoborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="11 seguridad de la información tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-lock"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #11</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Seguridad De La Información</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="12 política nacional de integridad pública ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #12</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Política Nacional De Integridad Pública</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="13 buenas prácticas ambientales en áreas administrativas seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-recycle"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #13</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Buenas Prácticas Ambientales En Áreas Administrativas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="14 prevención de accidentes laborales seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #14</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Accidentes Laborales</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="15 sistema de gestión de la energía (sgen) automatización & energía control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #15</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Automatización & Energía</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Sistema De Gestión De La Energía (Sgen)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="16 legislación ambiental parte ii seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-tree"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #16</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Legislación Ambiental Parte II</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="17 crea una app tipo uber con android studio y firebase desarrollo software tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #17</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Desarrollo Software</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Crea Una App Tipo Uber Con Android Studio Y Firebase</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="18 iot foundation (internet of things) tecnología & iot tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #18</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IoT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">IoT Foundation (Internet of Things)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="19 redes inalámbricas y configuración de antenas wireless tecnología & redes tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-wifi"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #19</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & Redes</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Redes Inalámbricas Y Configuración De Antenas Wireless</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="20 educación financiera administración legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-coins"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #20</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Administración</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Educación Financiera</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="21 taller de control de pérdidas control operativo control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-chart-line-down"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #21</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Control Operativo</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Taller De Control De Pérdidas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="22 brigadas para el control de emergencias seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #22</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Brigadas Para El Control De Emergencias</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="23 autocad 2d y 3d industrial diseño técnico tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-drafting-compass"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #23</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Diseño Técnico</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">AutoCAD 2D Y 3D Industrial</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="24 certificación en android studio essentials desarrollo software tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-android"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #24</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Desarrollo Software</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Certificación En Android Studio Essentials</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="25 prevención en el uso y consumo de alcohol y tabaco salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #25</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención En El Uso Y Consumo De Alcohol y Tabaco</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="26 primeros auxilios en accidentes cerebro vasculares primeros auxilios hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-kit-medical"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #26</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Primeros Auxilios</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Primeros Auxilios En Accidentes Cerebro Vasculares</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="27 prevención de corrupción y soborno ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-gavel"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #27</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Corrupción Y Soborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="28 transparencia y acceso a la información pública gestión pública legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #28</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Gestión Pública</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Transparencia Y Acceso A La Información Pública</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="29 código de ética ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-book"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #29</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Código De Ética</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="30 huella ecológica gestión ambiental hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shoe-prints"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #30</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Gestión Ambiental</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Huella Ecológica</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="31 manejo de residuos peligrosos y no peligrosos gestión ambiental hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-biohazard"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #31</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Gestión Ambiental</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manejo De Residuos Peligrosos Y No Peligrosos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="32 prevención vih/sida: salud sexual y reproductiva salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-notes-medical"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #32</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención VIH/SIDA: Salud Sexual Y Reproductiva</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="33 prevención de alcohol y drogas salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #33</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Alcohol Y Drogas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="34 reglamento de higiene y seguridad seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-file-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #34</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Reglamento De Higiene Y Seguridad</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="35 manejo defensivo seguridad vial hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-truck"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #35</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Vial</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manejo Defensivo</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="36 ciberseguridad tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #36</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Ciberseguridad</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="37 lavado de activos cumplimiento legal legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #37</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Cumplimiento Legal</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Lavado De Activos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="38 educación financiera ii administración legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #38</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Administración</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Educación Financiera II</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="39 fundamentos: derechos laborales derecho laboral legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #39</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Derecho Laboral</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos: Derechos Laborales</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="40 fundamentos prevención de lavado de activos cumplimiento legal legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #40</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Cumplimiento Legal</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos Prevención De Lavado De Activos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="41 certificación en prevención de riesgos eléctricos seguridad eléctrica hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-bolt-lightning"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #41</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Eléctrica</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Certificación En Prevención De Riesgos Eléctricos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="42 curso prevención de riesgos eléctricos seguridad eléctrica hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-plug-circle-exclamation"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #42</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Eléctrica</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Curso Prevención De Riesgos Eléctricos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="43 análisis de riesgo de la tarea y permisos de trabajo seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #43</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Análisis De Riesgo De La Tarea Y Permisos De Trabajo</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="44 ahorro de recursos sostenibilidad hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #44</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Sostenibilidad</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Ahorro De Recursos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="45 plan estratégico de ep petroecuador 2021-2025 planificación legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-chess-rook"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #45</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Planificación</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Plan Estratégico De EP Petroecuador 2021-2025</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="46 programas de prevención y promoción de la salud salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #46</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Programas De Prevención Y Promoción De La Salud</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="47 manual de usuario alfresco content services tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-folder-tree"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #47</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manual De Usuario Alfresco Content Services</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="48 inducción corporativa institucional legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-building"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #48</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Institucional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Inducción Corporativa</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="49 sistema documental quipux sistemas digitales tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-file-signature"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #49</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Sistemas Digitales</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Sistema Documental Quipux</h4></div>
                 </div>
                 <!-- Nota: Los registros continúan hasta el 104, se puede expandir la lista siguiendo la misma estructura -->
             </div>
