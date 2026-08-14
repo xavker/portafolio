@@ -109,7 +109,7 @@
     <!-- Interactive Canvas Background -->
     <canvas id="neural-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40"></canvas>
 
-    <!-- Top Ambient Light Glows -->
+    <!-- Ambient Light Glows -->
     <div class="fixed top-0 left-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow"></div>
     <div class="fixed top-1/3 right-10 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style="animation-delay: 2s;"></div>
 
@@ -265,7 +265,7 @@
                 <div class="text-[11px] text-cyan-500/80 font-mono mt-0.5">EP Petroecuador (2014-2026)</div>
             </div>
             <div class="cyber-glass rounded-xl p-5 border border-emerald-500/20 text-center hover:border-emerald-400 transition-all group">
-                <div class="text-3xl sm:text-4xl font-display font-extrabold text-emerald-400 group-hover:scale-110 transition-transform">100+</div>
+                <div class="text-3xl sm:text-4xl font-display font-extrabold text-emerald-400 group-hover:scale-110 transition-transform">104</div>
                 <div class="text-xs font-mono text-slate-400 mt-1 uppercase tracking-wider">Capacitaciones & Cursos</div>
                 <div class="text-[11px] text-emerald-500/80 font-mono mt-0.5">Técnicas, HSE & Gestión</div>
             </div>
@@ -281,7 +281,7 @@
             </div>
         </section>
 
-        <!-- PERFIL & TERMINAL -->
+        <!-- 01. PERFIL & TERMINAL -->
         <section id="perfil" class="space-y-6">
             <div class="flex items-center gap-3">
                 <span class="text-cyan-400 font-mono text-lg font-bold">01.</span>
@@ -339,7 +339,7 @@
             </div>
         </section>
 
-        <!-- TRAYECTORIA LABORAL -->
+        <!-- 02. TRAYECTORIA LABORAL -->
         <section id="experiencia" class="space-y-8">
             <div class="flex items-center gap-3">
                 <span class="text-cyan-400 font-mono text-lg font-bold">02.</span>
@@ -425,7 +425,7 @@
             </div>
         </section>
 
-        <!-- FORMACIÓN ACADÉMICA -->
+        <!-- 03. FORMACIÓN ACADÉMICA -->
         <section id="formacion" class="space-y-6">
             <div class="flex items-center gap-3">
                 <span class="text-cyan-400 font-mono text-lg font-bold">03.</span>
@@ -462,7 +462,7 @@
             </div>
         </section>
 
-        <!-- COMPETENCIAS TÉCNICAS -->
+        <!-- 04. COMPETENCIAS TÉCNICAS -->
         <section id="competencias" class="space-y-6">
             <div class="flex items-center gap-3">
                 <span class="text-cyan-400 font-mono text-lg font-bold">04.</span>
@@ -515,18 +515,20 @@
             </div>
         </section>
 
-        <!-- CAPACITACIONES & CURSOS -->
+        <!-- 05. CAPACITACIONES & CURSOS (100% PRE-RENDERIZADAS) -->
         <section id="capacitaciones" class="space-y-6">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
                     <span class="text-cyan-400 font-mono text-lg font-bold">05.</span>
                     <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">CAPACITACIONES & CURSOS</h2>
                 </div>
-                <div class="text-xs font-mono text-cyan-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800">
-                    Total Registrado: <span class="font-bold text-white">104 capacitaciones</span>
+                <div class="text-xs font-mono text-cyan-400 bg-slate-900/80 px-3 py-1.5 rounded-lg border border-slate-800 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                    <span>Total Registrado: <strong id="course-count" class="text-white">104 capacitaciones</strong></span>
                 </div>
             </div>
 
+            <!-- Interactive Search & Filter Bar -->
             <div class="cyber-glass rounded-xl p-4 flex flex-col sm:flex-row gap-4 items-center justify-between">
                 <div class="relative w-full sm:w-96">
                     <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
@@ -534,118 +536,205 @@
                 </div>
 
                 <div class="flex flex-wrap gap-2 w-full sm:w-auto">
-                    <button onclick="filterCourses('all')" class="filter-btn active px-3 py-1.5 rounded-md text-xs font-mono bg-cyan-500 text-black font-semibold transition-all">Todos</button>
-                    <button onclick="filterCourses('control')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Automatización</button>
-                    <button onclick="filterCourses('maximo')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Maximo EAM</button>
-                    <button onclick="filterCourses('hse')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Seguridad / HSE</button>
-                    <button onclick="filterCourses('tech')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Tecnología & IoT</button>
+                    <button type="button" onclick="filterCategory(this, 'all')" class="filter-btn active px-3 py-1.5 rounded-md text-xs font-mono bg-cyan-500 text-black font-semibold transition-all">Todos (104)</button>
+                    <button type="button" onclick="filterCategory(this, 'control')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Automatización</button>
+                    <button type="button" onclick="filterCategory(this, 'maximo')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Maximo EAM</button>
+                    <button type="button" onclick="filterCategory(this, 'hse')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Seguridad / HSE</button>
+                    <button type="button" onclick="filterCategory(this, 'tech')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Tecnología & IT</button>
+                    <button type="button" onclick="filterCategory(this, 'legal')" class="filter-btn px-3 py-1.5 rounded-md text-xs font-mono bg-slate-900 text-slate-300 hover:text-cyan-400 border border-slate-800 transition-all">Normativa / Ética</button>
                 </div>
             </div>
 
-            <div id="courses-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[550px] overflow-y-auto pr-2">
-            </div>
-        </section>
-
-        <!-- CONTACTO & ACCIÓN -->
-        <section id="contacto" class="space-y-6">
-            <div class="flex items-center gap-3">
-                <span class="text-cyan-400 font-mono text-lg font-bold">06.</span>
-                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">CANAL DE CONTACTO</h2>
-                <div class="h-px flex-1 bg-gradient-to-r from-cyan-500/40 to-transparent"></div>
-            </div>
-
-            <div class="cyber-glass rounded-2xl p-8 border border-cyan-500/30 relative overflow-hidden">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                    <div class="space-y-4">
-                        <h3 class="text-2xl font-display font-bold text-white">¿Deseas ponerte en contacto?</h3>
-                        <p class="text-slate-300 text-sm leading-relaxed">
-                            Disponible para proyectos de alta complejidad, optimización de sistemas de control, liderazgo de operaciones o consultas profesionales.
-                        </p>
-                        <div class="space-y-3 pt-2 font-mono text-xs text-slate-300">
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-slate-900 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
-                                <span>xavier.ramon@eppetroecuador.ec</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-slate-900 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
-                                    <i class="fa-solid fa-phone"></i>
-                                </div>
-                                <span>(09) 7972-4195 | +593 97 972 4195</span>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-lg bg-slate-900 border border-cyan-500/40 flex items-center justify-center text-cyan-400">
-                                    <i class="fa-solid fa-map-location-dot"></i>
-                                </div>
-                                <span>Celica, Loja, Ecuador (Depósito La Toma, Catamayo)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-slate-950/80 rounded-xl p-6 border border-slate-800 space-y-4 text-center">
-                        <div class="w-16 h-16 rounded-full bg-cyan-500/10 border border-cyan-400/40 mx-auto flex items-center justify-center text-cyan-400 text-2xl animate-pulse">
-                            <i class="fa-solid fa-bolt"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-white font-display">Conexión Inmediata</h4>
-                        <p class="text-xs font-mono text-slate-400">
-                            Inicia una conversación directa vía WhatsApp o envía un mensaje institucional.
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                            <a href="https://wa.me/593979724195" target="_blank" rel="noopener noreferrer" class="flex-1 py-3 px-4 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-mono font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
-                            </a>
-                            <a href="mailto:xavier.ramon@eppetroecuador.ec" class="flex-1 py-3 px-4 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-black font-mono font-bold text-xs flex items-center justify-center gap-2 transition-all">
-                                <i class="fa-solid fa-envelope text-base"></i> Enviar Email
-                            </a>
-                        </div>
-                    </div>
+            <!-- Pre-rendered Static Grid with Scrollbar -->
+            <div id="courses-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[600px] overflow-y-auto pr-2 border border-slate-800/40 rounded-xl p-3 bg-slate-950/40">
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="01 excepcionalidad del convenio de pago legal / normativa legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #01</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Legal / Normativa</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Excepcionalidad Del Convenio De Pago</h4></div>
                 </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="cyber-glass border-t border-slate-800/80 py-8 px-4 mt-20 text-center font-mono text-xs text-slate-500 space-y-2">
-        <p class="text-slate-400">
-            &copy; 2026 <strong class="text-white">Leonardo Xavier Ramón Poma, M.Sc.</strong> &bull; Todos los derechos reservados.
-        </p>
-        <p class="text-[11px]">
-            Diseñado para despliegue en <span class="text-cyan-400">GitHub Pages</span> &bull; Arquitectura de Alto Rendimiento & Estilo Ciberpunk
-        </p>
-    </footer>
-
-    <!-- Interactive Scripts & Courses Data -->
-    <script>
-        const coursesData = [
-            { id: "01", name: "Excepcionalidad Del Convenio De Pago", cat: "legal" },
-            { id: "02", name: "Norma Iso 37001 Antisoborno", cat: "hse" },
-            { id: "03", name: "Fundamentos De La Ley Orgánica Para Impulsar La Economía", cat: "legal" },
-            { id: "04", name: "Uso Y Mantenimiento De Equipos De Proteccion Individual (EPP)", cat: "hse" },
-            { id: "05", name: "Permisos De Trabajo Y Análisis De Riesgos Tarea (ART)", cat: "hse" },
-            { id: "06", name: "Descarbonización Y Gestión De La Energía", cat: "control" },
-            { id: "07", name: "Gestión Por Procesos", cat: "maximo" },
-            { id: "08", name: "Riesgo Ergonómico", cat: "hse" },
-            { id: "09", name: "Política Antisoborno", cat: "hse" },
-            { id: "11", name: "Seguridad De La Información", cat: "tech" },
-            { id: "12", name: "Política Nacional De Integridad Pública", cat: "legal" },
-            { id: "13", name: "Buenas Prácticas Ambientales En Áreas Administrativas", cat: "hse" },
-            { id: "14", name: "Prevención De Accidentes Laborales", cat: "hse" },
-            { id: "15", name: "Sistema De Gestión De La Energía (Sgen)", cat: "control" },
-            { id: "16", name: "Legislación Ambiental Parte II", cat: "hse" },
-            { id: "17", name: "Crea Una App Tipo Uber Con Android Studio Y Firebase", cat: "tech" },
-            { id: "18", name: "IoT Foundation (Internet of Things)", cat: "tech" },
-            { id: "19", name: "Redes Inalámbricas Y Configuración De Antenas Wireless", cat: "tech" },
-            { id: "20", name: "Educación Financiera", cat: "legal" },
-            { id: "21", name: "Taller De Control De Pérdidas", cat: "control" },
-            { id: "22", name: "Brigadas Para El Control De Emergencias", cat: "hse" },
-            { id: "23", name: "AutoCAD 2D Y 3D", cat: "tech" },
-            { id: "24", name: "Certificación En Android Studio Essentials", cat: "tech" },
-            { id: "25", name: "Prevención En El Uso Y Consumo De Alcohol, Tabaco", cat: "hse" },
-            { id: "26", name: "Primeros Auxilios En Accidentes Cerebro Vasculares", cat: "hse" },
-            { id: "27", name: "Prevención De Corrupción Y Soborno", cat: "legal" },
-            { id: "28", name: "Transparencia Y Acceso A La Información Pública", cat: "legal" },
-            { id: "29", name: "Código De Ética", cat: "legal" },
-            { id: "30", name: "Huella Ecológica", cat: "hse" },
-            { id: "31", name: "Manejo De Residuos Peligrosos
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="02 norma iso 37001 antisoborno seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #02</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Norma Iso 37001 Antisoborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="03 fundamentos de la ley orgánica para impulsar la economía legal / normativa legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #03</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Legal / Normativa</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos De La Ley Orgánica Para Impulsar La Economía</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="04 uso y mantenimiento de equipos de protección individual (epp) seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-hard-hat"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #04</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Uso Y Mantenimiento De Equipos De Protección Individual (EPP)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="05 permisos de trabajo y análisis de riesgos tarea (art) seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-clipboard-check"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #05</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Permisos De Trabajo Y Análisis De Riesgos Tarea (ART)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="06 descarbonización y gestión de la energía automatización & energía control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-leaf"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #06</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Automatización & Energía</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Descarbonización Y Gestión De La Energía</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="maximo" data-search="07 gestión por procesos gestión & procesos maximo">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-emerald-400 border-emerald-500/30 bg-emerald-950/50"><i class="fa-solid fa-diagram-project"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #07</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-emerald-400 border-emerald-500/30 bg-emerald-950/50">Gestión & Procesos</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Gestión Por Procesos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="08 riesgo ergonómico seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-person-falling"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #08</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Riesgo Ergonómico</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="09 política antisoborno ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-handshake-slash"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #09</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Política Antisoborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="11 seguridad de la información tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-lock"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #11</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Seguridad De La Información</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="12 política nacional de integridad pública ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-landmark"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #12</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Política Nacional De Integridad Pública</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="13 buenas prácticas ambientales en áreas administrativas seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-recycle"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #13</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Buenas Prácticas Ambientales En Áreas Administrativas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="14 prevención de accidentes laborales seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #14</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Accidentes Laborales</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="15 sistema de gestión de la energía (sgen) automatización & energía control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #15</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Automatización & Energía</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Sistema De Gestión De La Energía (Sgen)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="16 legislación ambiental parte ii seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-tree"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #16</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Legislación Ambiental Parte II</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="17 crea una app tipo uber con android studio y firebase desarrollo software tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-mobile-screen"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #17</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Desarrollo Software</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Crea Una App Tipo Uber Con Android Studio Y Firebase</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="18 iot foundation (internet of things) tecnología & iot tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-network-wired"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #18</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IoT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">IoT Foundation (Internet of Things)</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="19 redes inalámbricas y configuración de antenas wireless tecnología & redes tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-wifi"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #19</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & Redes</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Redes Inalámbricas Y Configuración De Antenas Wireless</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="20 educación financiera administración legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-coins"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #20</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Administración</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Educación Financiera</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="control" data-search="21 taller de control de pérdidas control operativo control">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-cyan-400 border-cyan-500/30 bg-cyan-950/50"><i class="fa-solid fa-chart-line-down"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #21</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-cyan-400 border-cyan-500/30 bg-cyan-950/50">Control Operativo</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Taller De Control De Pérdidas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="22 brigadas para el control de emergencias seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #22</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Brigadas Para El Control De Emergencias</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="23 autocad 2d y 3d industrial diseño técnico tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-drafting-compass"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #23</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Diseño Técnico</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">AutoCAD 2D Y 3D Industrial</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="24 certificación en android studio essentials desarrollo software tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-android"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #24</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Desarrollo Software</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Certificación En Android Studio Essentials</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="25 prevención en el uso y consumo de alcohol y tabaco salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-heart-pulse"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #25</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención En El Uso Y Consumo De Alcohol y Tabaco</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="26 primeros auxilios en accidentes cerebro vasculares primeros auxilios hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-kit-medical"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #26</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Primeros Auxilios</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Primeros Auxilios En Accidentes Cerebro Vasculares</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="27 prevención de corrupción y soborno ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-gavel"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #27</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Corrupción Y Soborno</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="28 transparencia y acceso a la información pública gestión pública legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-bullhorn"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #28</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Gestión Pública</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Transparencia Y Acceso A La Información Pública</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="29 código de ética ética & cumplimiento legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-book"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #29</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Ética & Cumplimiento</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Código De Ética</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="30 huella ecológica gestión ambiental hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shoe-prints"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #30</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Gestión Ambiental</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Huella Ecológica</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="31 manejo de residuos peligrosos y no peligrosos gestión ambiental hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-biohazard"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #31</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Gestión Ambiental</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manejo De Residuos Peligrosos Y No Peligrosos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="32 prevención vih/sida: salud sexual y reproductiva salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-notes-medical"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #32</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención VIH/SIDA: Salud Sexual Y Reproductiva</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="33 prevención de alcohol y drogas salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #33</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Prevención De Alcohol Y Drogas</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="34 reglamento de higiene y seguridad seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-file-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #34</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Reglamento De Higiene Y Seguridad</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="35 manejo defensivo seguridad vial hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-truck"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #35</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Vial</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manejo Defensivo</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="36 ciberseguridad tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-user-shield"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #36</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Ciberseguridad</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="37 lavado de activos cumplimiento legal legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-money-bill-transfer"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #37</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Cumplimiento Legal</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Lavado De Activos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="38 educación financiera ii administración legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #38</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Administración</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Educación Financiera II</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="39 fundamentos: derechos laborales derecho laboral legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-scale-unbalanced"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #39</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Derecho Laboral</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos: Derechos Laborales</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="40 fundamentos prevención de lavado de activos cumplimiento legal legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-magnifying-glass-dollar"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #40</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Cumplimiento Legal</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Fundamentos Prevención De Lavado De Activos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="41 certificación en prevención de riesgos eléctricos seguridad eléctrica hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-bolt-lightning"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #41</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Eléctrica</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Certificación En Prevención De Riesgos Eléctricos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="42 curso prevención de riesgos eléctricos seguridad eléctrica hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-plug-circle-exclamation"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #42</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad Eléctrica</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Curso Prevención De Riesgos Eléctricos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="43 análisis de riesgo de la tarea y permisos de trabajo seguridad / hse hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-list-check"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #43</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Seguridad / HSE</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Análisis De Riesgo De La Tarea Y Permisos De Trabajo</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="44 ahorro de recursos sostenibilidad hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-seedling"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #44</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Sostenibilidad</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Ahorro De Recursos</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="45 plan estratégico de ep petroecuador 2021-2025 planificación legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-chess-rook"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #45</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Planificación</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Plan Estratégico De EP Petroecuador 2021-2025</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="hse" data-search="46 programas de prevención y promoción de la salud salud ocupacional hse">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-yellow-400 border-yellow-500/30 bg-yellow-950/50"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #46</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-yellow-400 border-yellow-500/30 bg-yellow-950/50">Salud Ocupacional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Programas De Prevención Y Promoción De La Salud</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="47 manual de usuario alfresco content services tecnología & it tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-folder-tree"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #47</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-purple-400 border-purple-500/30 bg-purple-950/50">Tecnología & IT</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Manual De Usuario Alfresco Content Services</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="legal" data-search="48 inducción corporativa institucional legal">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-slate-400 border-slate-700 bg-slate-900/60"><i class="fa-solid fa-building"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #48</span><span class="text-[9px] font-mono uppercase px-1.5 py-0.5 rounded border text-slate-400 border-slate-700 bg-slate-900/60">Institucional</span></div><h4 class="text-xs font-semibold text-white mt-1 leading-snug">Inducción Corporativa</h4></div>
+                </div>
+                <div class="course-card cyber-glass rounded-lg p-3.5 border border-slate-800/90 hover:border-cyan-500/50 transition-all flex items-start gap-3" data-category="tech" data-search="49 sistema documental quipux sistemas digitales tech">
+                    <div class="w-9 h-9 rounded bg-slate-900 border border-slate-800 flex items-center justify-center flex-shrink-0 text-sm text-purple-400 border-purple-500/30 bg-purple-950/50"><i class="fa-solid fa-file-signature"></i></div>
+                    <div class="flex-1 min-w-0"><div class="flex items-center justify-between gap-1"><span class="text-[10px] font-mono text-slate-500 font-bold">REG #49</span><span class="text-
