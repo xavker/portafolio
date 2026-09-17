@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador SCADA SOTE (503 km // 350,000 BPD) | Ing. Leonardo Ramón</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            bg: '#070b14',
+                            card: '#0d1527',
+                            border: '#1e293b',
+                            neon: '#00f2fe',
+                            electric: '#4facfe',
+                            emerald: '#10b981',
+                            purple: '#8b5cf6',
+                            accent: '#38bdf8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .neon-glow { text-shadow: 0 0 10px rgba(0, 242, 254, 0.6), 0 0 20px rgba(0, 242, 254, 0.3); }
+        .neon-box-glow { box-shadow: 0 0 25px -5px rgba(0, 242, 254, 0.25), inset 0 0 15px -5px rgba(0, 242, 254, 0.15); }
+        .cyber-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 242, 254, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 242, 254, 0.04) 1px, transparent 1px);
+        }
+        .cyber-glass {
+            background: rgba(13, 21, 39, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+        }
+        @keyframes spinImpeller {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .pump-running .pump-impeller {
+            animation: spinImpeller 0.8s linear infinite;
+        }
+        .pump-stopped .pump-impeller {
+            animation: none !important;
+        }
+        @keyframes pipelineFlowAnim {
+            0% { stroke-dashoffset: 0; }
+            100% { stroke-dashoffset: -56; }
+        }
+        .pipeline-animated-flow {
+            animation: pipelineFlowAnim 1.2s linear infinite;
+        }
+        .pipeline-flow-paused .pipeline-animated-flow {
+            animation-play-state: paused !important;
+        }
+        @keyframes surgePulse {
+            0%, 100% { stroke: #ef4444; stroke-width: 8; opacity: 1; }
+            50% { stroke: #f59e0b; stroke-width: 12; opacity: 0.7; }
+        }
+        .pipeline-surge-active {
+            animation: surgePulse 0.5s ease-in-out infinite !important;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #070b14; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 4px; border: 1px solid rgba(0, 242, 254, 0.2); }
+        ::-webkit-scrollbar-thumb:hover { background: #00f2fe; }
+    </style>
+</head>
+<body class="bg-cyber-bg text-slate-200 font-sans min-h-screen cyber-grid p-3 sm:p-6">
+    <div class="max-w-7xl mx-auto space-y-6">
+        <div class="flex items-center justify-between pb-4 border-b border-cyan-500/20">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-slate-900 border border-cyan-400 flex items-center justify-center font-display font-black text-cyan-400 shadow-[0_0_15px_rgba(0,242,254,0.3)]">
+                    LXR
+                </div>
+                <div>
+                    <h1 class="font-display font-bold text-white text-base sm:text-lg tracking-wide">
+                        CONSOLA SCADA &bull; SISTEMA DE OLEODUCTO TRANSECUATORIANO (SOTE)
+                    </h1>
+                    <p class="text-xs font-mono text-cyan-400">
+                        ING. LEONARDO XAVIER RAMÓN POMA // EP PETROECUADOR // 503 KM // 350.000 BPD
+                    </p>
+                </div>
+            </div>
+            <a href="index.html" class="px-3.5 py-1.5 rounded-lg bg-slate-900 border border-cyan-500/40 text-xs font-mono text-cyan-300 hover:text-white transition-all flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Volver al Portafolio
+            </a>
+        </div>
+
+        <!-- ========================================================================= -->
+        <!-- 03. SCADA SOTE: SISTEMA DE OLEODUCTO TRANSECUATORIANO (503 KM // 350K BPD) -->
+        <!-- ========================================================================= -->
+        <section id="oleoducto" class="space-y-8 scroll-mt-24">
+            <!-- Header de la Sección -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center gap-3">
+                        <span class="text-cyan-400 font-mono text-lg font-bold">03.</span>
+                        <h2 class="text-2xl sm:text-3xl font-display font-bold text-white tracking-wide">
+                            SISTEMA DE OLEODUCTO TRANSECUATORIANO (SOTE)
+                        </h2>
+                    </div>
+                    <p class="text-xs sm:text-sm font-mono text-cyan-400/90 pl-8">
+                        503 KM DE EXTENSIÓN &bull; 350.000 BPD &bull; 6 ESTACIONES DE BOMBEO, 4 REDUCTORAS Y TERMINAL BALAO
+                    </p>
+                </div>
+                <div class="flex items-center gap-2 self-start md:self-auto">
+                    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-xs font-mono text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                        <span id="scada-status-pill" class="font-bold">SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Panel Principal SCADA Dashboard -->
+            <div class="cyber-glass rounded-2xl p-4 sm:p-6 border border-cyan-500/30 neon-box-glow space-y-6">
+                
+                <!-- Barra Superior de Parámetros Globales SOTE -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 text-xs font-mono">
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-gauge-high text-cyan-400"></i> Caudal Diario
+                        </span>
+                        <div class="text-base sm:text-lg font-bold text-white mt-1">
+                            <span id="telemetry-flow">350,000</span> <span class="text-[10px] text-cyan-400 font-normal">BPD</span>
+                        </div>
+                        <span class="text-[10px] text-emerald-400">2,318 m³/h (Continuo)</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-route text-cyan-400"></i> Distancia Total
+                        </span>
+                        <div class="text-base sm:text-lg font-bold text-white mt-1">
+                            503.0 <span class="text-[10px] text-cyan-400 font-normal">KM</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Lago Agrio a Balao</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-mountain text-amber-400"></i> Cumbre Guamaní
+                        </span>
+                        <div class="text-base sm:text-lg font-bold text-amber-400 mt-1">
+                            4,064 <span class="text-[10px] font-normal">msnm</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Cota Máxima Andina</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-compress-arrows-alt text-cyan-400"></i> Presión Máx.
+                        </span>
+                        <div class="text-base sm:text-lg font-bold text-white mt-1">
+                            <span id="telemetry-max-pres">1,450</span> <span class="text-[10px] text-cyan-400 font-normal">PSI</span>
+                        </div>
+                        <span class="text-[10px] text-slate-400">Papallacta Descarga</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-shield-halved text-emerald-400"></i> Integridad LDS
+                        </span>
+                        <div class="text-base sm:text-lg font-bold text-emerald-400 mt-1 flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400"></span> 100% OK
+                        </div>
+                        <span class="text-[10px] text-slate-400">Sin Desbalances</span>
+                    </div>
+
+                    <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
+                        <span class="text-slate-400 text-[10px] uppercase flex items-center gap-1.5">
+                            <i class="fa-solid fa-robot text-purple-400"></i> PIG Inteligente
+                        </span>
+                        <div id="pig-status-pill" class="text-xs sm:text-sm font-bold text-slate-300 mt-1">
+                            EN ESPERA (KM 0)
+                        </div>
+                        <span id="pig-km-pill" class="text-[10px] text-cyan-400">KM 0.0 / 503.0</span>
+                    </div>
+                </div>
+
+                <!-- Botonera de Control SCADA Interactiva -->
+                <div class="flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-slate-900/80 border border-cyan-500/20 text-xs font-mono">
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button id="btn-flow-toggle" type="button" onclick="pipelineToggleFlow()" class="px-3.5 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(0,242,254,0.4)]">
+                            <i id="btn-flow-icon" class="fa-solid fa-pause"></i> <span id="btn-flow-text">Pausar Flujo</span>
+                        </button>
+                        
+                        <button id="btn-launch-pig" type="button" onclick="pipelineLaunchPIG()" class="px-3.5 py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white font-semibold flex items-center gap-1.5 transition-all shadow-[0_0_12px_rgba(139,92,246,0.3)]">
+                            <i class="fa-solid fa-rocket text-purple-300"></i> <span>Lanzar PIG Inteligente (503 km)</span>
+                        </button>
+
+                        <button id="btn-simulate-surge" type="button" onclick="pipelineSimulateSurge()" class="px-3 py-2 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 font-semibold flex items-center gap-1.5 transition-all">
+                            <i class="fa-solid fa-bolt-lightning text-amber-400"></i> <span>Simular Transitorio / Surge</span>
+                        </button>
+
+                        <button id="btn-emergency-stop" type="button" onclick="pipelineEmergencyStop()" class="px-3 py-2 rounded-lg bg-red-950/60 hover:bg-red-900/80 text-red-400 border border-red-500/40 font-semibold flex items-center gap-1.5 transition-all">
+                            <i class="fa-solid fa-triangle-exclamation text-red-400"></i> <span>Parada ESD SOTE</span>
+                        </button>
+                    </div>
+
+                    <!-- Control de Caudal y Velocidad -->
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+                        <label for="pipeline-speed-slider" class="text-slate-400 text-[11px] whitespace-nowrap">Caudal:</label>
+                        <input id="pipeline-speed-slider" type="range" min="200" max="400" value="350" step="5" oninput="pipelineUpdateFlowRate(this.value)" class="w-28 sm:w-36 accent-cyan-400 cursor-pointer">
+                        <span id="slider-val-readout" class="text-cyan-300 font-bold min-w-[65px] text-right">350k BPD</span>
+                    </div>
+                </div>
+
+                <!-- Selector Rápido de Estaciones (Pestañas de 11 Instalaciones SOTE) -->
+                <div class="flex items-center gap-1.5 overflow-x-auto pb-1 text-[11px] font-mono scrollbar-thin">
+                    <span class="text-slate-500 text-[10px] uppercase mr-1 whitespace-nowrap">ESTACIONES SOTE:</span>
+                    <button type="button" onclick="pipelineSelectStation(1)" class="st-btn active px-2.5 py-1 rounded bg-cyan-500 text-slate-950 font-bold whitespace-nowrap">01. Lago Agrio</button>
+                    <button type="button" onclick="pipelineSelectStation(2)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-slate-300 hover:text-cyan-300 border border-slate-800 whitespace-nowrap">02. Lumbaqui</button>
+                    <button type="button" onclick="pipelineSelectStation(3)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-slate-300 hover:text-cyan-300 border border-slate-800 whitespace-nowrap">03. El Salado</button>
+                    <button type="button" onclick="pipelineSelectStation(4)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-slate-300 hover:text-cyan-300 border border-slate-800 whitespace-nowrap">04. Baeza</button>
+                    <button type="button" onclick="pipelineSelectStation(5)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-amber-300 hover:text-amber-200 border border-amber-500/30 whitespace-nowrap">05. Papallacta</button>
+                    <button type="button" onclick="pipelineSelectStation(6)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-orange-400 hover:text-orange-300 border border-orange-500/30 whitespace-nowrap">06. San Juan (R)</button>
+                    <button type="button" onclick="pipelineSelectStation(7)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-orange-400 hover:text-orange-300 border border-orange-500/30 whitespace-nowrap">07. Chiriboga (R)</button>
+                    <button type="button" onclick="pipelineSelectStation(8)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-orange-400 hover:text-orange-300 border border-orange-500/30 whitespace-nowrap">08. La Palma (R)</button>
+                    <button type="button" onclick="pipelineSelectStation(9)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-orange-400 hover:text-orange-300 border border-orange-500/30 whitespace-nowrap">09. Sto. Domingo (R)</button>
+                    <button type="button" onclick="pipelineSelectStation(10)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-slate-300 hover:text-cyan-300 border border-slate-800 whitespace-nowrap">10. Quinindé</button>
+                    <button type="button" onclick="pipelineSelectStation(11)" class="st-btn px-2.5 py-1 rounded bg-slate-900 text-emerald-400 hover:text-emerald-300 border border-emerald-500/30 whitespace-nowrap">11. Balao</button>
+                </div>
+
+                <!-- Canvas Gráfico Principal del Oleoducto SOTE (SVG Panorámico Interactivo) -->
+                <div class="relative w-full rounded-xl bg-slate-950/95 border border-cyan-500/30 p-2 sm:p-4 overflow-hidden">
+                    
+                    <!-- Notificación Flotante de Eventos / PIG / Alertas -->
+                    <div id="pipeline-alert-box" class="absolute top-4 left-1/2 -translate-x-1/2 z-30 hidden px-4 py-2 rounded-lg text-xs font-mono border backdrop-blur-md shadow-2xl transition-all duration-300">
+                        <span id="pipeline-alert-msg">Mensaje de alerta</span>
+                    </div>
+
+                    <!-- HUD Reticles Industriales -->
+                    <div class="absolute inset-0 pointer-events-none opacity-20">
+                        <div class="absolute top-3 left-3 w-4 h-4 border-t border-l border-cyan-400"></div>
+                        <div class="absolute top-3 right-3 w-4 h-4 border-t border-r border-cyan-400"></div>
+                        <div class="absolute bottom-3 left-3 w-4 h-4 border-b border-l border-cyan-400"></div>
+                        <div class="absolute bottom-3 right-3 w-4 h-4 border-b border-r border-cyan-400"></div>
+                    </div>
+
+                    <!-- SVG Principal del Oleoducto SOTE: 1400 x 500 -->
+                    <svg id="pipeline-svg" class="w-full h-auto select-none" viewBox="0 0 1400 500" preserveAspectRatio="xMidYMid meet">
+                        <defs>
+                            <!-- Gradiente de Terreno Andino Ecuatoriano -->
+                            <linearGradient id="terrain-grad-sote" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#111827" stop-opacity="0.95"/>
+                                <stop offset="40%" stop-color="#0b111e" stop-opacity="0.98"/>
+                                <stop offset="100%" stop-color="#030712" stop-opacity="1"/>
+                            </linearGradient>
+
+                            <!-- Gradiente de Presión Hidráulica a lo largo de los 503 km -->
+                            <linearGradient id="sote-fluid-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stop-color="#00f2fe"/>
+                                <stop offset="15%" stop-color="#38bdf8"/>
+                                <stop offset="30%" stop-color="#f59e0b"/>
+                                <stop offset="45%" stop-color="#fbbf24"/>
+                                <stop offset="50%" stop-color="#ef4444"/>
+                                <stop offset="65%" stop-color="#f97316"/>
+                                <stop offset="85%" stop-color="#00f2fe"/>
+                                <stop offset="100%" stop-color="#10b981"/>
+                            </linearGradient>
+
+                            <filter id="neon-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
+                                <feGaussianBlur stdDeviation="3" result="blur"/>
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                            
+                            <filter id="pig-glow" x="-30%" y="-30%" width="160%" height="160%">
+                                <feGaussianBlur stdDeviation="4" result="blur"/>
+                                <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+                            </filter>
+                        </defs>
+
+                        <!-- Capa 1: Fondo Topográfico Real del SOTE (Amazonía, Cruce de Andes y Costa) -->
+                        <g id="terrain-layer">
+                            <!-- Silueta Geodésica de la Cordillera de los Andes Ecuatorianos -->
+                            <path d="M 0 370 L 80 365 L 240 345 L 400 295 L 525 255 L 625 180 L 665 125 L 735 195 L 845 260 L 945 310 L 1055 350 L 1175 370 L 1320 375 L 1400 375 L 1400 500 L 0 500 Z" fill="url(#terrain-grad-sote)" stroke="#1e293b" stroke-width="1.5"/>
+                            
+                            <!-- Hito de Altitud Máxima: Páramo de Guamaní (4,064 msnm) -->
+                            <line x1="665" y1="125" x2="665" y2="70" stroke="#f59e0b" stroke-width="1" stroke-dasharray="3 3"/>
+                            <circle cx="665" cy="70" r="3" fill="#f59e0b" filter="url(#neon-glow-filter)"/>
+                            <text x="665" y="60" text-anchor="middle" fill="#fbbf24" font-family="Orbitron" font-size="10" font-weight="bold">PASO DE GUAMANÍ &bull; 4,064 msnm</text>
+                            <text x="665" y="48" text-anchor="middle" fill="#94a3b8" font-family="JetBrains Mono" font-size="8">CUMBRE ANDINA SOTE // PK 235+000</text>
+
+                            <!-- Líneas de Referencia de Altitud -->
+                            <line x1="30" y1="180" x2="1370" y2="180" stroke="#334155" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.3"/>
+                            <text x="35" y="175" fill="#64748b" font-family="JetBrains Mono" font-size="8">PÁRAMO / PAPALLACTA // 3,150 msnm</text>
+
+                            <line x1="30" y1="295" x2="1370" y2="295" stroke="#334155" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.3"/>
+                            <text x="35" y="290" fill="#64748b" font-family="JetBrains Mono" font-size="8">VALLES INTERANDINOS // 1,300 msnm</text>
+
+                            <line x1="30" y1="365" x2="1370" y2="365" stroke="#334155" stroke-width="0.8" stroke-dasharray="2 4" opacity="0.3"/>
+                            <text x="35" y="360" fill="#64748b" font-family="JetBrains Mono" font-size="8">TIERRAS BAJAS / COSTA // 300 - 15 msnm</text>
+                        </g>
+
+                        <!-- Capa 2: Tubería del SOTE (Acero API 5L X-60 // 26" y 20") -->
+                        <g id="pipeline-conduit-layer">
+                            <!-- Tubo Exterior Acero -->
+                            <path id="pipeline-backbone" d="M 40,350 C 46.7,350.0 46.7,353.3 80.0,350.0 C 113.3,346.7 186.7,342.5 240.0,330.0 C 293.3,317.5 352.5,290.8 400.0,275.0 C 447.5,259.2 487.5,254.2 525.0,235.0 C 562.5,215.8 601.7,180.8 625.0,160.0 C 648.3,139.2 646.7,107.5 665.0,110.0 C 683.3,112.5 705.0,153.3 735.0,175.0 C 765.0,196.7 810.0,220.8 845.0,240.0 C 880.0,259.2 910.0,275.0 945.0,290.0 C 980.0,305.0 1016.7,319.2 1055.0,330.0 C 1093.3,340.8 1130.8,350.0 1175.0,355.0 C 1219.2,360.0 1289.2,359.2 1320.0,360.0 C 1350.8,360.8 1353.3,360.0 1360.0,360.0" fill="none" stroke="#0f172a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <path d="M 40,350 C 46.7,350.0 46.7,353.3 80.0,350.0 C 113.3,346.7 186.7,342.5 240.0,330.0 C 293.3,317.5 352.5,290.8 400.0,275.0 C 447.5,259.2 487.5,254.2 525.0,235.0 C 562.5,215.8 601.7,180.8 625.0,160.0 C 648.3,139.2 646.7,107.5 665.0,110.0 C 683.3,112.5 705.0,153.3 735.0,175.0 C 765.0,196.7 810.0,220.8 845.0,240.0 C 880.0,259.2 910.0,275.0 945.0,290.0 C 980.0,305.0 1016.7,319.2 1055.0,330.0 C 1093.3,340.8 1130.8,350.0 1175.0,355.0 C 1219.2,360.0 1289.2,359.2 1320.0,360.0 C 1350.8,360.8 1353.3,360.0 1360.0,360.0" fill="none" stroke="#1e293b" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+                            
+                            <!-- Canal de Crudo Interno (Flujo) -->
+                            <path id="pipeline-fluid-channel" d="M 40,350 C 46.7,350.0 46.7,353.3 80.0,350.0 C 113.3,346.7 186.7,342.5 240.0,330.0 C 293.3,317.5 352.5,290.8 400.0,275.0 C 447.5,259.2 487.5,254.2 525.0,235.0 C 562.5,215.8 601.7,180.8 625.0,160.0 C 648.3,139.2 646.7,107.5 665.0,110.0 C 683.3,112.5 705.0,153.3 735.0,175.0 C 765.0,196.7 810.0,220.8 845.0,240.0 C 880.0,259.2 910.0,275.0 945.0,290.0 C 980.0,305.0 1016.7,319.2 1055.0,330.0 C 1093.3,340.8 1130.8,350.0 1175.0,355.0 C 1219.2,360.0 1289.2,359.2 1320.0,360.0 C 1350.8,360.8 1353.3,360.0 1360.0,360.0" fill="none" stroke="#0284c7" stroke-width="7" stroke-linecap="round" opacity="0.6"/>
+
+                            <!-- Capa Animada de Flujo Dinámico en la Tubería -->
+                            <path id="pipeline-flow-stream" d="M 40,350 C 46.7,350.0 46.7,353.3 80.0,350.0 C 113.3,346.7 186.7,342.5 240.0,330.0 C 293.3,317.5 352.5,290.8 400.0,275.0 C 447.5,259.2 487.5,254.2 525.0,235.0 C 562.5,215.8 601.7,180.8 625.0,160.0 C 648.3,139.2 646.7,107.5 665.0,110.0 C 683.3,112.5 705.0,153.3 735.0,175.0 C 765.0,196.7 810.0,220.8 845.0,240.0 C 880.0,259.2 910.0,275.0 945.0,290.0 C 980.0,305.0 1016.7,319.2 1055.0,330.0 C 1093.3,340.8 1130.8,350.0 1175.0,355.0 C 1219.2,360.0 1289.2,359.2 1320.0,360.0 C 1350.8,360.8 1353.3,360.0 1360.0,360.0" fill="none" stroke="url(#sote-fluid-grad)" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="16 12" class="pipeline-animated-flow"/>
+
+                            <!-- Flechas de Dirección de Flujo -->
+                            <g fill="#00f2fe" opacity="0.8">
+                                <polygon points="160,344 172,340 160,336"/>
+                                <polygon points="320,307 332,301 320,295"/>
+                                <polygon points="460,258 472,251 460,244"/>
+                                <polygon points="575,200 587,192 575,184"/>
+                                <polygon points="785,210 797,218 785,226"/>
+                                <polygon points="895,268 907,276 895,284"/>
+                                <polygon points="1000,314 1012,321 1000,328"/>
+                                <polygon points="1115,345 1127,351 1115,357"/>
+                                <polygon points="1245,357 1257,360 1245,363"/>
+                            </g>
+                        </g>
+
+                        <!-- Capa 3: 11 Instalaciones Oficiales del SOTE -->
+                        <g id="stations-layer">
+
+                            <!-- 01. LAGO AGRIO (EB-01) // KM 0 // 300m // x=80, y=350 -->
+                            <g id="station-node-1" class="cursor-pointer group" onclick="pipelineSelectStation(1)">
+                                <rect x="55" y="340" width="50" height="20" rx="3" fill="#1e293b" stroke="#00f2fe" stroke-width="1.8" class="group-hover:stroke-cyan-300"/>
+                                <circle cx="80" cy="350" r="12" fill="#0d1527" stroke="#00f2fe" stroke-width="1.8"/>
+                                <g id="impeller-1" class="pump-impeller" style="transform-origin: 80px 350px;">
+                                    <line x1="80" y1="340" x2="80" y2="360" stroke="#00f2fe" stroke-width="2"/>
+                                    <line x1="70" y1="350" x2="90" y2="350" stroke="#00f2fe" stroke-width="2"/>
+                                </g>
+                                <circle cx="100" cy="346" r="3" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="80" y="376" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">LAGO AGRIO</text>
+                                <text x="80" y="387" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">EB-01 &bull; KM 0</text>
+                            </g>
+
+                            <!-- 02. LUMBAQUI (EB-02) // KM 65 // 540m // x=240, y=330 -->
+                            <g id="station-node-2" class="cursor-pointer group" onclick="pipelineSelectStation(2)">
+                                <rect x="215" y="320" width="50" height="20" rx="3" fill="#1e293b" stroke="#00f2fe" stroke-width="1.5" class="group-hover:stroke-cyan-300"/>
+                                <circle cx="240" cy="330" r="12" fill="#0d1527" stroke="#00f2fe" stroke-width="1.8"/>
+                                <g id="impeller-2" class="pump-impeller" style="transform-origin: 240px 330px;">
+                                    <line x1="240" y1="320" x2="240" y2="340" stroke="#00f2fe" stroke-width="2"/>
+                                    <line x1="230" y1="330" x2="250" y2="330" stroke="#00f2fe" stroke-width="2"/>
+                                </g>
+                                <circle cx="260" cy="326" r="3" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="240" y="356" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">LUMBAQUI</text>
+                                <text x="240" y="367" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">EB-02 &bull; KM 65</text>
+                            </g>
+
+                            <!-- 03. EL SALADO (EB-03) // KM 130 // 1,300m // x=400, y=275 -->
+                            <g id="station-node-3" class="cursor-pointer group" onclick="pipelineSelectStation(3)">
+                                <rect x="375" y="265" width="50" height="20" rx="3" fill="#1e293b" stroke="#00f2fe" stroke-width="1.5" class="group-hover:stroke-cyan-300"/>
+                                <circle cx="400" cy="275" r="12" fill="#0d1527" stroke="#00f2fe" stroke-width="1.8"/>
+                                <g id="impeller-3" class="pump-impeller" style="transform-origin: 400px 275px;">
+                                    <line x1="400" y1="265" x2="400" y2="285" stroke="#00f2fe" stroke-width="2"/>
+                                    <line x1="390" y1="275" x2="410" y2="275" stroke="#00f2fe" stroke-width="2"/>
+                                </g>
+                                <circle cx="420" cy="271" r="3" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="400" y="301" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">EL SALADO</text>
+                                <text x="400" y="312" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">EB-03 &bull; KM 130</text>
+                            </g>
+
+                            <!-- 04. BAEZA (EB-04) // KM 180 // 1,850m // x=525, y=235 -->
+                            <g id="station-node-4" class="cursor-pointer group" onclick="pipelineSelectStation(4)">
+                                <rect x="500" y="225" width="50" height="20" rx="3" fill="#1e293b" stroke="#00f2fe" stroke-width="1.5" class="group-hover:stroke-cyan-300"/>
+                                <circle cx="525" cy="235" r="12" fill="#0d1527" stroke="#00f2fe" stroke-width="1.8"/>
+                                <g id="impeller-4" class="pump-impeller" style="transform-origin: 525px 235px;">
+                                    <line x1="525" y1="225" x2="525" y2="245" stroke="#00f2fe" stroke-width="2"/>
+                                    <line x1="515" y1="235" x2="535" y2="235" stroke="#00f2fe" stroke-width="2"/>
+                                </g>
+                                <circle cx="545" cy="231" r="3" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="525" y="261" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">BAEZA</text>
+                                <text x="525" y="272" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">EB-04 &bull; KM 180</text>
+                            </g>
+
+                            <!-- 05. PAPALLACTA (EB-05 // IMPULSIÓN CUMBRE) // KM 220 // 3,150m // x=625, y=160 -->
+                            <g id="station-node-5" class="cursor-pointer group" onclick="pipelineSelectStation(5)">
+                                <rect x="600" y="150" width="50" height="20" rx="3" fill="#1e293b" stroke="#f59e0b" stroke-width="2" class="group-hover:stroke-amber-300"/>
+                                <circle cx="625" cy="160" r="13" fill="#0d1527" stroke="#f59e0b" stroke-width="2"/>
+                                <g id="impeller-5" class="pump-impeller" style="transform-origin: 625px 160px;">
+                                    <line x1="625" y1="149" x2="625" y2="171" stroke="#f59e0b" stroke-width="2"/>
+                                    <line x1="614" y1="160" x2="636" y2="160" stroke="#f59e0b" stroke-width="2"/>
+                                </g>
+                                <circle cx="645" cy="156" r="3.5" fill="#f59e0b" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="625" y="138" text-anchor="middle" fill="#fbbf24" font-family="Orbitron" font-size="9.5" font-weight="bold">PAPALLACTA</text>
+                                <text x="625" y="148" text-anchor="middle" fill="#f59e0b" font-family="JetBrains Mono" font-size="8">EB-05 &bull; 3,150m</text>
+                            </g>
+
+                            <!-- 06. SAN JUAN (ER-01 // REDUCTORA 1) // KM 265 // 3,200m // x=735, y=175 -->
+                            <g id="station-node-6" class="cursor-pointer group" onclick="pipelineSelectStation(6)">
+                                <rect x="715" y="165" width="40" height="20" rx="3" fill="#1e293b" stroke="#f97316" stroke-width="1.8" class="group-hover:stroke-orange-300"/>
+                                <!-- Icono Válvula Reductora (Diábolo PRV) -->
+                                <polygon points="727,170 735,175 727,180" fill="#f97316"/>
+                                <polygon points="743,170 735,175 743,180" fill="#f97316"/>
+                                <circle cx="735" cy="170" r="2.5" fill="#ffffff"/>
+                                <text x="735" y="201" text-anchor="middle" fill="#fed7aa" font-family="Orbitron" font-size="9" font-weight="bold">SAN JUAN</text>
+                                <text x="735" y="212" text-anchor="middle" fill="#f97316" font-family="JetBrains Mono" font-size="7.5">ER-01 &bull; Reductora</text>
+                            </g>
+
+                            <!-- 07. CHIRIBOGA (ER-02 // REDUCTORA 2) // KM 310 // 1,900m // x=845, y=240 -->
+                            <g id="station-node-7" class="cursor-pointer group" onclick="pipelineSelectStation(7)">
+                                <rect x="825" y="230" width="40" height="20" rx="3" fill="#1e293b" stroke="#f97316" stroke-width="1.5" class="group-hover:stroke-orange-300"/>
+                                <polygon points="837,235 845,240 837,245" fill="#f97316"/>
+                                <polygon points="853,235 845,240 853,245" fill="#f97316"/>
+                                <circle cx="845" cy="235" r="2.5" fill="#ffffff"/>
+                                <text x="845" y="266" text-anchor="middle" fill="#fed7aa" font-family="Orbitron" font-size="9" font-weight="bold">CHIRIBOGA</text>
+                                <text x="845" y="277" text-anchor="middle" fill="#f97316" font-family="JetBrains Mono" font-size="7.5">ER-02 &bull; Reductora</text>
+                            </g>
+
+                            <!-- 08. LA PALMA (ER-03 // REDUCTORA 3) // KM 350 // 1,150m // x=945, y=290 -->
+                            <g id="station-node-8" class="cursor-pointer group" onclick="pipelineSelectStation(8)">
+                                <rect x="925" y="280" width="40" height="20" rx="3" fill="#1e293b" stroke="#f97316" stroke-width="1.5" class="group-hover:stroke-orange-300"/>
+                                <polygon points="937,285 945,290 937,295" fill="#f97316"/>
+                                <polygon points="953,285 945,290 953,295" fill="#f97316"/>
+                                <circle cx="945" cy="285" r="2.5" fill="#ffffff"/>
+                                <text x="945" y="316" text-anchor="middle" fill="#fed7aa" font-family="Orbitron" font-size="9" font-weight="bold">LA PALMA</text>
+                                <text x="945" y="327" text-anchor="middle" fill="#f97316" font-family="JetBrains Mono" font-size="7.5">ER-03 &bull; Reductora</text>
+                            </g>
+
+                            <!-- 09. SANTO DOMINGO (ER-04 // REDUCTORA 4) // KM 395 // 550m // x=1055, y=330 -->
+                            <g id="station-node-9" class="cursor-pointer group" onclick="pipelineSelectStation(9)">
+                                <rect x="1035" y="320" width="40" height="20" rx="3" fill="#1e293b" stroke="#f97316" stroke-width="1.5" class="group-hover:stroke-orange-300"/>
+                                <polygon points="1047,325 1055,330 1047,335" fill="#f97316"/>
+                                <polygon points="1063,325 1055,330 1063,335" fill="#f97316"/>
+                                <circle cx="1055" cy="325" r="2.5" fill="#ffffff"/>
+                                <text x="1055" y="356" text-anchor="middle" fill="#fed7aa" font-family="Orbitron" font-size="8.5" font-weight="bold">STO. DOMINGO</text>
+                                <text x="1055" y="367" text-anchor="middle" fill="#f97316" font-family="JetBrains Mono" font-size="7.5">ER-04 &bull; Reductora</text>
+                            </g>
+
+                            <!-- 10. QUININDÉ (EB-06 // BOMBEA A COSTA) // KM 445 // 100m // x=1175, y=355 -->
+                            <g id="station-node-10" class="cursor-pointer group" onclick="pipelineSelectStation(10)">
+                                <rect x="1150" y="345" width="50" height="20" rx="3" fill="#1e293b" stroke="#00f2fe" stroke-width="1.5" class="group-hover:stroke-cyan-300"/>
+                                <circle cx="1175" cy="355" r="12" fill="#0d1527" stroke="#00f2fe" stroke-width="1.8"/>
+                                <g id="impeller-10" class="pump-impeller" style="transform-origin: 1175px 355px;">
+                                    <line x1="1175" y1="345" x2="1175" y2="365" stroke="#00f2fe" stroke-width="2"/>
+                                    <line x1="1165" y1="355" x2="1185" y2="355" stroke="#00f2fe" stroke-width="2"/>
+                                </g>
+                                <circle cx="1195" cy="351" r="3" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                <text x="1175" y="381" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">QUININDÉ</text>
+                                <text x="1175" y="392" text-anchor="middle" fill="#38bdf8" font-family="JetBrains Mono" font-size="8">EB-06 &bull; KM 445</text>
+                            </g>
+
+                            <!-- 11. TERMINAL BALAO (ESMERALDAS // EXPORTACIÓN) // KM 503 // 15m // x=1320, y=360 -->
+                            <g id="station-node-11" class="cursor-pointer group" onclick="pipelineSelectStation(11)">
+                                <rect x="1295" y="350" width="50" height="20" rx="3" fill="#1e293b" stroke="#10b981" stroke-width="2" class="group-hover:stroke-emerald-300"/>
+                                
+                                <!-- Batería de Tanques Terminales Fiscales -->
+                                <rect x="1348" y="325" width="22" height="34" rx="2" fill="#0f172a" stroke="#475569" stroke-width="1"/>
+                                <rect x="1350" y="335" width="18" height="22" fill="#10b981" opacity="0.6"/>
+                                <line x1="1348" y1="332" x2="1370" y2="332" stroke="#64748b" stroke-width="1"/>
+
+                                <circle cx="1320" cy="360" r="13" fill="#0d1527" stroke="#10b981" stroke-width="2"/>
+                                <circle cx="1320" cy="360" r="4" fill="#10b981"/>
+                                <circle cx="1340" cy="356" r="3.5" fill="#10b981" class="animate-pulse" filter="url(#neon-glow-filter)"/>
+                                
+                                <text x="1320" y="386" text-anchor="middle" fill="#ffffff" font-family="Orbitron" font-size="9.5" font-weight="bold">TERMINAL BALAO</text>
+                                <text x="1320" y="397" text-anchor="middle" fill="#10b981" font-family="JetBrains Mono" font-size="8">KM 503 &bull; Océano Pacífico</text>
+                            </g>
+
+                        </g>
+
+                        <!-- Capa 4: Cápsula PIG Inteligente (Trayectoria sobre los 503 km) -->
+                        <g id="pig-tool-group" class="hidden pointer-events-none">
+                            <circle id="pig-sonar-ring" cx="0" cy="0" r="14" fill="none" stroke="#c084fc" stroke-width="1.5" opacity="0.8" class="animate-ping"/>
+                            <rect id="pig-capsule" x="-11" y="-5.5" width="22" height="11" rx="3" fill="#8b5cf6" stroke="#f3e8ff" stroke-width="1.5" filter="url(#pig-glow)"/>
+                            <circle id="pig-sensor-eye" cx="7" cy="0" r="2.5" fill="#00f2fe"/>
+                        </g>
+
+                        <!-- Capa 5: Línea de Gradiente Hidráulico SOTE (HGL // Head Line) -->
+                        <g id="hgl-layer" opacity="0.8">
+                            <path id="hgl-path" d="M 40 460 L 80 460 L 80 425 L 240 445 L 240 420 L 400 440 L 400 415 L 525 435 L 525 410 L 625 430 L 625 400 L 735 440 L 845 445 L 945 450 L 1055 455 L 1175 460 L 1175 435 L 1320 465 L 1360 465" fill="none" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 3"/>
+                            <text x="45" y="480" fill="#64748b" font-family="JetBrains Mono" font-size="8.5">PERFIL DE PRESIÓN HIDRÁULICA Y CONTROL DE ENERGÍA (HGL // PSI)</text>
+                        </g>
+                    </svg>
+
+                </div>
+
+                <!-- Inspector Detallado de la Estación Seleccionada (Modal / Drawer SCADA) -->
+                <div id="station-detail-card" class="p-4 sm:p-5 rounded-xl bg-slate-950/90 border border-cyan-500/30 font-mono text-xs space-y-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-cyan-500/20 pb-3">
+                        <div class="flex items-center gap-2">
+                            <span id="detail-badge" class="px-2.5 py-1 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 text-[11px] font-bold">ESTACIÓN DE BOMBEO</span>
+                            <h3 id="detail-title" class="text-sm sm:text-base font-bold text-white font-display">01. ESTACIÓN LAGO AGRIO (CABECERA AMAZÓNICA)</h3>
+                        </div>
+                        <span id="detail-coords" class="text-slate-400 text-[11px]">PK 0+000 // ELEV: 300 msnm // PROVINCIA SUCUMBÍOS</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Columna 1: Unidades de Bombeo o Reducción -->
+                        <div class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2">
+                            <div class="text-[11px] text-cyan-400 font-bold border-b border-slate-800 pb-1 flex items-center justify-between">
+                                <span id="detail-unit-title">BOMBAS PRINCIPALES SOTE</span>
+                                <span id="detail-unit-badge" class="text-emerald-400 text-[9px]">CENTRIFUGAS</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Unidad Principal:</span>
+                                <span id="detail-pump-a-status" class="text-emerald-400 font-bold">OPERANDO (3,540 RPM)</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Unidad Standby:</span>
+                                <span id="detail-pump-b-status" class="text-slate-400">LISTA EN ESPERA</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Vibración / Monitoreo:</span>
+                                <span id="detail-vibration" class="text-white">1.62 mm/s (Normal)</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Temperatura Cojinetes:</span>
+                                <span id="detail-winding-temp" class="text-white">52.4 °C</span>
+                            </div>
+                        </div>
+
+                        <!-- Columna 2: Lazo de Control & Instrumentación DeltaV -->
+                        <div class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2">
+                            <div class="text-[11px] text-cyan-400 font-bold border-b border-slate-800 pb-1 flex items-center justify-between">
+                                <span>DCS DeltaV // LAZO PID</span>
+                                <span id="detail-pid-tag" class="text-cyan-400 text-[9px]">FIC-101 / PIC-102</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Setpoint (SP):</span>
+                                <span id="detail-pid-sp" class="text-cyan-300">1,320 PSI</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Presión Proceso (PV):</span>
+                                <span id="detail-pid-pv" class="text-white font-bold">1,319.4 PSI</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Salida Control (VFD / VLV):</span>
+                                <span id="detail-pid-out" class="text-emerald-400">58.4 Hz (97.3%)</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Transmisor Succión/Descarga:</span>
+                                <span class="text-slate-300">Rosemount 3051S HART</span>
+                            </div>
+                        </div>
+
+                        <!-- Columna 3: Mantenimiento IBM Maximo EAM -->
+                        <div class="p-3 rounded-lg bg-slate-900/90 border border-slate-800 space-y-2">
+                            <div class="text-[11px] text-cyan-400 font-bold border-b border-slate-800 pb-1 flex items-center justify-between">
+                                <span>IBM MAXIMO EAM</span>
+                                <span class="text-emerald-400 text-[9px]">GESTIÓN SOTE</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Última OT Preventiva:</span>
+                                <span id="detail-ot-number" class="text-white">OT #88241 (CERRADA)</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Plan de Mantenimiento:</span>
+                                <span id="detail-plan" class="text-slate-300">MP-SOTE-BOMB-01</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Sello / Alivio Hidráulico:</span>
+                                <span class="text-emerald-400">Plan API 53A // Alivio OK</span>
+                            </div>
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="text-slate-400">Permisos de Trabajo / ART:</span>
+                                <span class="text-emerald-400 font-bold">VIGENTE // VALIDADO</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+    <script>
+
+        // =========================================================================
+        // SCADA SOTE (SISTEMA DE OLEODUCTO TRANSECUATORIANO - 503 KM // 350K BPD)
+        // =========================================================================
+        const soteData = {
+            flowing: true,
+            flowRate: 350000, // 350,000 BPD
+            surgeActive: false,
+            esdActive: false,
+            pigActive: false,
+            pigProgress: 0.0,
+            activeStation: 1,
+            stations: {
+                1: {
+                    name: "01. ESTACIÓN LAGO AGRIO (CABECERA)",
+                    coords: "PK 0+000 // ELEV: 300 msnm // SUCUMBÍOS",
+                    badge: "ESTACIÓN DE BOMBEO // CABECERA ORIENTE",
+                    type: "bombeo",
+                    baseSuc: 45,
+                    baseDis: 1320,
+                    unitTitle: "BOMBAS BOOSTER & ALTA PRESIÓN",
+                    unitBadge: "3 x 2,000 HP",
+                    statusA: "OPERANDO (3,540 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.62 mm/s (Normal)",
+                    temp: "52.4 °C",
+                    pidTag: "FIC-101 / PIC-102",
+                    pidSP: "1,320 PSI",
+                    pidOut: "58.4 Hz (97.3%)",
+                    ot: "OT #88241 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-01 (Trimestral)"
+                },
+                2: {
+                    name: "02. ESTACIÓN LUMBAQUI",
+                    coords: "PK 65+000 // ELEV: 540 msnm // SUCUMBÍOS",
+                    badge: "ESTACIÓN DE BOMBEO // TRAMO AMAZÓNICO",
+                    type: "bombeo",
+                    baseSuc: 85,
+                    baseDis: 1350,
+                    unitTitle: "BOMBAS CENTRÍFUGAS MULTIETAPA",
+                    unitBadge: "2 x 2,000 HP",
+                    statusA: "OPERANDO (3,550 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.70 mm/s (Normal)",
+                    temp: "54.1 °C",
+                    pidTag: "PIC-201 / VFD-201",
+                    pidSP: "1,350 PSI",
+                    pidOut: "59.0 Hz (98.3%)",
+                    ot: "OT #88310 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-02 (Semestral)"
+                },
+                3: {
+                    name: "03. ESTACIÓN EL SALADO",
+                    coords: "PK 130+000 // ELEV: 1,300 msnm // NAPO",
+                    badge: "ESTACIÓN DE BOMBEO // ASCENSO ANDINO",
+                    type: "bombeo",
+                    baseSuc: 90,
+                    baseDis: 1380,
+                    unitTitle: "BOMBAS CENTRÍFUGAS DE ALTA PRESIÓN",
+                    unitBadge: "3 x 2,500 HP",
+                    statusA: "OPERANDO (3,570 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.75 mm/s (Normal)",
+                    temp: "55.8 °C",
+                    pidTag: "PIC-301 / VFD-301",
+                    pidSP: "1,380 PSI",
+                    pidOut: "59.4 Hz (99.0%)",
+                    ot: "OT #88125 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-03 (Trimestral)"
+                },
+                4: {
+                    name: "04. ESTACIÓN BAEZA",
+                    coords: "PK 180+000 // ELEV: 1,850 msnm // VALLE DE QUIJOS",
+                    badge: "ESTACIÓN DE BOMBEO // VALLE SUBANDINO",
+                    type: "bombeo",
+                    baseSuc: 105,
+                    baseDis: 1420,
+                    unitTitle: "BOMBAS IMPULSIÓN CORDILLERA",
+                    unitBadge: "3 x 2,500 HP",
+                    statusA: "OPERANDO (3,580 RPM)",
+                    statusB: "STANDBY AUTOMÁTICO",
+                    vibration: "1.82 mm/s (Normal)",
+                    temp: "53.2 °C",
+                    pidTag: "PIC-401 / VFD-401",
+                    pidSP: "1,420 PSI",
+                    pidOut: "59.8 Hz (99.6%)",
+                    ot: "OT #88204 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-04 (Trimestral)"
+                },
+                5: {
+                    name: "05. ESTACIÓN PAPALLACTA",
+                    coords: "PK 220+000 // ELEV: 3,150 msnm // PÁRAMO",
+                    badge: "ESTACIÓN DE BOMBEO // COTA CRÍTICA A GUAMANÍ (4,064m)",
+                    type: "bombeo",
+                    baseSuc: 120,
+                    baseDis: 1450,
+                    unitTitle: "BOMBAS DE ALTA PRESIÓN A CUMBRE",
+                    unitBadge: "4 x 2,500 HP",
+                    statusA: "OPERANDO (3,600 RPM)",
+                    statusB: "STANDBY CALEFACTADO",
+                    vibration: "1.88 mm/s (Normal)",
+                    temp: "51.0 °C",
+                    pidTag: "PIC-501 (DeltaV PID Anti-cavitación)",
+                    pidSP: "1,450 PSI",
+                    pidOut: "60.0 Hz (100.0%)",
+                    ot: "OT #88415 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-05 (Mensual)"
+                },
+                6: {
+                    name: "06. ESTACIÓN SAN JUAN (REDUCTORA 1)",
+                    coords: "PK 265+000 // ELEV: 3,200 msnm // PICHINCHA",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 1 // DISIPACIÓN",
+                    type: "reductora",
+                    baseSuc: 1200,
+                    baseDis: 450,
+                    unitTitle: "SKID DE VÁLVULAS REGULADORAS PRV",
+                    unitBadge: "DISIPACIÓN CONTROLADA",
+                    statusA: "VÁLVULA PRV-101 MODULANDO (42%)",
+                    statusB: "VÁLVULA PRV-102 EN BYPASS",
+                    vibration: "0.85 mm/s (Flujo laminar)",
+                    temp: "24.5 °C",
+                    pidTag: "PRV-601 (DeltaV Control de Presión)",
+                    pidSP: "450 PSI",
+                    pidOut: "Apertura 42.5%",
+                    ot: "OT #88019 (CERRADA)",
+                    plan: "MP-SOTE-RED-01 (Semestral)"
+                },
+                7: {
+                    name: "07. ESTACIÓN CHIRIBOGA (REDUCTORA 2)",
+                    coords: "PK 310+000 // ELEV: 1,900 msnm // CORDILLERA OCCIDENTAL",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 2 // DESCENSO",
+                    type: "reductora",
+                    baseSuc: 980,
+                    baseDis: 400,
+                    unitTitle: "SKID VÁLVULAS REGULADORAS PRV",
+                    unitBadge: "ALIVIO DE CARGA",
+                    statusA: "VÁLVULA PRV-201 MODULANDO (38%)",
+                    statusB: "VÁLVULA PRV-202 STANDBY",
+                    vibration: "0.78 mm/s",
+                    temp: "26.1 °C",
+                    pidTag: "PRV-701 (Lazo Reductor)",
+                    pidSP: "400 PSI",
+                    pidOut: "Apertura 38.2%",
+                    ot: "OT #87912 (CERRADA)",
+                    plan: "MP-SOTE-RED-02 (Semestral)"
+                },
+                8: {
+                    name: "08. ESTACIÓN LA PALMA (REDUCTORA 3)",
+                    coords: "PK 350+000 // ELEV: 1,150 msnm // SUBTROPICAL",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 3",
+                    type: "reductora",
+                    baseSuc: 890,
+                    baseDis: 380,
+                    unitTitle: "SKID DISIPACIÓN DE ENERGÍA",
+                    unitBadge: "ORIFICIOS MULTIETAPA",
+                    statusA: "VÁLVULA PRV-301 ACTIVA (35%)",
+                    statusB: "VÁLVULA PRV-302 STANDBY",
+                    vibration: "0.72 mm/s",
+                    temp: "27.8 °C",
+                    pidTag: "PRV-801",
+                    pidSP: "380 PSI",
+                    pidOut: "Apertura 35.0%",
+                    ot: "OT #87844 (CERRADA)",
+                    plan: "MP-SOTE-RED-03 (Semestral)"
+                },
+                9: {
+                    name: "09. ESTACIÓN SANTO DOMINGO (REDUCTORA 4)",
+                    coords: "PK 395+000 // ELEV: 550 msnm // SANTO DOMINGO",
+                    badge: "ESTACIÓN REDUCTORA 4 // TRANSICIÓN A COSTA",
+                    type: "reductora",
+                    baseSuc: 750,
+                    baseDis: 280,
+                    unitTitle: "SKID REDUCTOR FINAL & FILTRADO",
+                    unitBadge: "CONTROL DE TRANSITORIOS",
+                    statusA: "VÁLVULA PRV-401 MODULANDO (32%)",
+                    statusB: "SKID SURGE RELIEF LISTO",
+                    vibration: "0.65 mm/s",
+                    temp: "29.4 °C",
+                    pidTag: "PRV-901",
+                    pidSP: "280 PSI",
+                    pidOut: "Apertura 32.1%",
+                    ot: "OT #88390 (CERRADA)",
+                    plan: "MP-SOTE-RED-04 (Semestral)"
+                },
+                10: {
+                    name: "10. ESTACIÓN QUININDÉ",
+                    coords: "PK 445+000 // ELEV: 100 msnm // ESMERALDAS",
+                    badge: "ESTACIÓN DE BOMBEO // RE-BOMBEO COSTA",
+                    type: "bombeo",
+                    baseSuc: 60,
+                    baseDis: 850,
+                    unitTitle: "BOMBAS CENTRÍFUGAS DE IMPULSO FINAL",
+                    unitBadge: "2 x 1,500 HP",
+                    statusA: "OPERANDO (3,520 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.42 mm/s (Normal)",
+                    temp: "48.2 °C",
+                    pidTag: "PIC-1001 / VFD-1001",
+                    pidSP: "850 PSI",
+                    pidOut: "54.2 Hz (90.3%)",
+                    ot: "OT #88288 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-06 (Trimestral)"
+                },
+                11: {
+                    name: "11. TERMINAL MARÍTIMO BALAO",
+                    coords: "PK 503+000 // ELEV: 15 msnm // ESMERALDAS",
+                    badge: "TERMINAL DE DESPACHO & EXPORTACIÓN MARÍTIMA",
+                    type: "terminal",
+                    baseSuc: 50,
+                    baseDis: 120,
+                    unitTitle: "BATERÍA DE TANQUES & MONOBOYAS",
+                    unitBadge: "TRANSFERENCIA FISCAL",
+                    statusA: "MANIFOLD DE DESPACHO ACTIVO",
+                    statusB: "TRAMPA RECEPTORA PIG LISTA",
+                    vibration: "0.55 mm/s (Óptimo)",
+                    temp: "31.2 °C",
+                    pidTag: "FIC-1101 (Medición Coriolis Fiscal)",
+                    pidSP: "350,000 BPD",
+                    pidOut: "Válvula Entrega 100%",
+                    ot: "OT #88490 (CERRADA - Fiscalización)",
+                    plan: "MP-SOTE-BALAO-01 (Anual)"
+                }
+            }
+        };
+
+        // Seleccionar Estación y Actualizar el Inspector SCADA
+        function pipelineSelectStation(stId) {
+            soteData.activeStation = stId;
+            const st = soteData.stations[stId];
+            if (!st) return;
+
+            // Actualizar botones de estación en la barra rápida
+            document.querySelectorAll('.st-btn').forEach((b, idx) => {
+                if (idx + 1 === stId) {
+                    b.classList.add('bg-cyan-500', 'text-slate-950', 'font-bold');
+                    b.classList.remove('bg-slate-900', 'text-slate-300');
+                } else {
+                    b.classList.remove('bg-cyan-500', 'text-slate-950', 'font-bold');
+                    b.classList.add('bg-slate-900', 'text-slate-300');
+                }
+            });
+
+            // Resaltar en SVG
+            for (let i = 1; i <= 11; i++) {
+                const node = document.getElementById(`station-node-${i}`);
+                if (node) {
+                    const rect = node.querySelector('rect');
+                    if (rect) {
+                        rect.setAttribute('stroke-width', i === stId ? '3' : (i === 5 || i === 11 ? '2' : '1.5'));
+                    }
+                }
+            }
+
+            document.getElementById('detail-title').innerText = st.name;
+            document.getElementById('detail-coords').innerText = st.coords;
+            document.getElementById('detail-badge').innerText = st.badge;
+            document.getElementById('detail-unit-title').innerText = st.unitTitle;
+            document.getElementById('detail-unit-badge').innerText = st.unitBadge;
+            document.getElementById('detail-pid-tag').innerText = st.pidTag;
+            document.getElementById('detail-pid-sp').innerText = st.pidSP;
+            document.getElementById('detail-ot-number').innerText = st.ot;
+            document.getElementById('detail-plan').innerText = st.plan;
+
+            const baseDis = soteData.esdActive ? 40 : (soteData.surgeActive && (stId === 5 || stId === 6) ? st.baseDis + 320 : st.baseDis);
+            document.getElementById('detail-pid-pv').innerText = `${baseDis.toFixed(1)} PSI`;
+            document.getElementById('detail-pid-out').innerText = soteData.esdActive ? '0.0% (Desconectado)' : st.pidOut;
+            document.getElementById('detail-vibration').innerText = soteData.esdActive ? '0.00 mm/s (Detenido)' : st.vibration;
+            document.getElementById('detail-winding-temp').innerText = st.temp;
+            document.getElementById('detail-pump-a-status').innerText = soteData.esdActive ? 'PARADA ESD' : st.statusA;
+            document.getElementById('detail-pump-a-status').className = soteData.esdActive ? 'text-red-400 font-bold' : 'text-emerald-400 font-bold';
+            document.getElementById('detail-pump-b-status').innerText = soteData.esdActive ? 'DESCONECTADO' : st.statusB;
+        }
+
+        // Conmutar Pausa y Marcha de Flujo
+        function pipelineToggleFlow() {
+            if (soteData.esdActive) {
+                soteData.esdActive = false;
+                soteData.flowing = true;
+                document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-xs font-mono text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                pipelineShowAlert("REINICIO SOTE // BOMBAS RESTABLECIDAS A CONSIGNAS SCADA", "cyan");
+            } else {
+                soteData.flowing = !soteData.flowing;
+            }
+
+            const btnText = document.getElementById('btn-flow-text');
+            const btnIcon = document.getElementById('btn-flow-icon');
+            const svg = document.getElementById('pipeline-svg');
+
+            if (soteData.flowing) {
+                btnText.innerText = "Pausar Flujo";
+                btnIcon.className = "fa-solid fa-pause";
+                if (svg) svg.classList.remove('pipeline-flow-paused');
+                document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            } else {
+                btnText.innerText = "Reanudar Flujo";
+                btnIcon.className = "fa-solid fa-play";
+                if (svg) svg.classList.add('pipeline-flow-paused');
+                document.getElementById('scada-status-pill').innerText = "SISTEMA PAUSADO // LAZOS EN ESPERA";
+                document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.remove('pump-running'));
+            }
+            pipelineSelectStation(soteData.activeStation);
+        }
+
+        // Modificar Caudal Diario (BPD)
+        function pipelineUpdateFlowRate(val) {
+            soteData.flowRate = parseInt(val) * 1000;
+            document.getElementById('telemetry-flow').innerText = (soteData.flowRate).toLocaleString();
+            document.getElementById('slider-val-readout').innerText = `${val}k BPD`;
+
+            const stream = document.getElementById('pipeline-flow-stream');
+            if (stream) {
+                const duration = (2.4 - ((val - 200) / 200) * 1.6).toFixed(2);
+                stream.style.animationDuration = `${duration}s`;
+            }
+        }
+
+        // Lanzamiento de Herramienta PIG Inteligente a lo largo de los 503 KM
+        function pipelineLaunchPIG() {
+            if (soteData.pigActive) {
+                pipelineShowAlert("HERRAMIENTA PIG YA ESTÁ EN TRÁNSITO INTERNO POR EL SOTE", "amber");
+                return;
+            }
+            if (!soteData.flowing) {
+                pipelineShowAlert("ATENCIÓN: EL OLEODUCTO DEBE ESTAR EN FLUJO PARA LANZAR PIG", "red");
+                return;
+            }
+
+            soteData.pigActive = true;
+            soteData.pigProgress = 0.0;
+            
+            const pigGroup = document.getElementById('pig-tool-group');
+            const path = document.getElementById('pipeline-fluid-channel');
+            if (!pigGroup || !path) return;
+
+            pigGroup.classList.remove('hidden');
+            document.getElementById('pig-status-pill').innerText = "EN TRÁNSITO MFL";
+            document.getElementById('pig-status-pill').className = "text-xs sm:text-sm font-bold text-purple-400 mt-1";
+            pipelineShowAlert("PIG LANZADO EN LAGO AGRIO (KM 0) // ESCANEO ULTRASÓNICO DE PARED ACTIVO", "purple");
+
+            const pathLength = path.getTotalLength();
+            const transitDuration = 20000; // 20s transit
+            const startTime = performance.now();
+
+            function stepPIG(now) {
+                if (!soteData.pigActive) return;
+
+                const elapsed = now - startTime;
+                soteData.pigProgress = Math.min(elapsed / transitDuration, 1.0);
+                
+                const currentDist = soteData.pigProgress * pathLength;
+                const pt = path.getPointAtLength(currentDist);
+
+                pigGroup.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+
+                const currentKM = (soteData.pigProgress * 503.0).toFixed(1);
+                document.getElementById('pig-km-pill').innerText = `KM ${currentKM} / 503.0`;
+
+                // Avisos al pasar por puntos clave del SOTE
+                if (soteData.pigProgress > 0.12 && soteData.pigProgress < 0.14) {
+                    pipelineShowAlert("PIG PASANDO EB-02 LUMBAQUI (KM 65) // ESPESOR 12.7 mm [OK]", "cyan");
+                } else if (soteData.pigProgress > 0.25 && soteData.pigProgress < 0.27) {
+                    pipelineShowAlert("PIG EN EB-03 EL SALADO (KM 130) // PRESIÓN Y REGISTRO MAGNÉTICO OK", "cyan");
+                } else if (soteData.pigProgress > 0.35 && soteData.pigProgress < 0.37) {
+                    pipelineShowAlert("PIG EN EB-04 BAEZA (KM 180) // VELOCIDAD 2.8 m/s", "cyan");
+                } else if (soteData.pigProgress > 0.43 && soteData.pigProgress < 0.45) {
+                    pipelineShowAlert("PIG EN EB-05 PAPALLACTA (KM 220) // INICIANDO ASCENSO A GUAMANÍ", "amber");
+                } else if (soteData.pigProgress > 0.46 && soteData.pigProgress < 0.48) {
+                    pipelineShowAlert("PIG CRUZANDO CUMBRE DE GUAMANÍ (4,064 msnm) // INTEGRIDAD 100%", "amber");
+                } else if (soteData.pigProgress > 0.52 && soteData.pigProgress < 0.54) {
+                    pipelineShowAlert("PIG EN ER-01 SAN JUAN // ENTRANDO A TRAMO REDUCTOR", "cyan");
+                } else if (soteData.pigProgress > 0.61 && soteData.pigProgress < 0.63) {
+                    pipelineShowAlert("PIG PASANDO ER-02 CHIRIBOGA (KM 310)", "cyan");
+                } else if (soteData.pigProgress > 0.69 && soteData.pigProgress < 0.71) {
+                    pipelineShowAlert("PIG PASANDO ER-03 LA PALMA (KM 350)", "cyan");
+                } else if (soteData.pigProgress > 0.78 && soteData.pigProgress < 0.80) {
+                    pipelineShowAlert("PIG PASANDO ER-04 SANTO DOMINGO (KM 395)", "cyan");
+                } else if (soteData.pigProgress > 0.88 && soteData.pigProgress < 0.90) {
+                    pipelineShowAlert("PIG PASANDO EB-06 QUININDÉ (KM 445) // TRAMO FINAL A BALAO", "cyan");
+                }
+
+                if (soteData.pigProgress < 1.0 && soteData.flowing) {
+                    requestAnimationFrame(stepPIG);
+                } else if (soteData.pigProgress >= 1.0) {
+                    pigGroup.classList.add('hidden');
+                    soteData.pigActive = false;
+                    document.getElementById('pig-status-pill').innerText = "RECIBIDO EN BALAO";
+                    document.getElementById('pig-status-pill').className = "text-xs sm:text-sm font-bold text-emerald-400 mt-1";
+                    pipelineShowAlert("¡PIG RECIBIDO EN TRAMPA DE BALAO (KM 503)! // INSPECCIÓN MFL COMPLETADA // 0 ANOMALÍAS", "emerald");
+                }
+            }
+
+            requestAnimationFrame(stepPIG);
+        }
+
+        // Simulación de Golpe de Ariete (Surge Event en tramo reductor)
+        function pipelineSimulateSurge() {
+            if (soteData.surgeActive || soteData.esdActive) return;
+
+            soteData.surgeActive = true;
+            const stream = document.getElementById('pipeline-flow-stream');
+            if (stream) stream.classList.add('pipeline-surge-active');
+
+            pipelineShowAlert("¡GOLPE DE ARIETE EN ER-01 SAN JUAN! VÁLVULA DE ALIVIO SURGE ACTUANDO", "red");
+            document.getElementById('scada-status-pill').innerText = "TRANSITORIO HIDRÁULICO SOTE // ALIVIO SURGE ACTIVADO";
+            document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-950/80 border border-red-500/50 text-xs font-mono text-red-400 animate-pulse";
+
+            document.getElementById('telemetry-max-pres').innerText = "1,680";
+
+            setTimeout(() => {
+                if (!soteData.esdActive) {
+                    if (stream) stream.classList.remove('pipeline-surge-active');
+                    soteData.surgeActive = false;
+                    document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                    document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-xs font-mono text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                    pipelineShowAlert("DCS DeltaV SOTE: VÁLVULAS DE ALIVIO AMORTIGUARON ONDA // PRESIÓN NORMALIZADA", "emerald");
+                    pipelineSelectStation(soteData.activeStation);
+                }
+            }, 4000);
+        }
+
+        // Parada de Emergencia ESD del SOTE
+        function pipelineEmergencyStop() {
+            soteData.esdActive = true;
+            soteData.flowing = false;
+            soteData.surgeActive = false;
+            
+            const svg = document.getElementById('pipeline-svg');
+            if (svg) svg.classList.add('pipeline-flow-paused');
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.remove('pump-running'));
+
+            document.getElementById('btn-flow-text').innerText = "Restablecer SOTE";
+            document.getElementById('btn-flow-icon').className = "fa-solid fa-rotate-left";
+
+            document.getElementById('scada-status-pill').innerText = "PARADA ESD SOTE // LÍNEA AISLADA";
+            document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-950/90 border border-red-500 text-xs font-mono text-red-400 font-bold";
+
+            pipelineShowAlert("PARADA DE EMERGENCIA ESD EN TODO EL SOTE // BOMBAS DESCONECTADAS // SDV CERRADAS", "red");
+            
+            document.getElementById('telemetry-max-pres').innerText = "90";
+            document.getElementById('telemetry-flow').innerText = "0";
+
+            pipelineSelectStation(soteData.activeStation);
+        }
+
+        // Notificaciones Flotantes
+        function pipelineShowAlert(msg, color) {
+            const box = document.getElementById('pipeline-alert-box');
+            const txt = document.getElementById('pipeline-alert-msg');
+            if (!box || !txt) return;
+
+            txt.innerText = msg;
+            let colorClasses = "bg-cyan-950/90 border-cyan-500/60 text-cyan-300";
+            if (color === "amber") colorClasses = "bg-amber-950/90 border-amber-500/60 text-amber-300";
+            if (color === "purple") colorClasses = "bg-purple-950/90 border-purple-500/60 text-purple-300";
+            if (color === "red") colorClasses = "bg-red-950/90 border-red-500/60 text-red-300 font-bold";
+            if (color === "emerald") colorClasses = "bg-emerald-950/90 border-emerald-500/60 text-emerald-300 font-bold";
+
+            box.className = `absolute top-4 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-lg text-xs font-mono border backdrop-blur-md shadow-2xl transition-all duration-300 ${colorClasses}`;
+            box.classList.remove('hidden');
+
+            clearTimeout(window.pipelineAlertTimeout);
+            window.pipelineAlertTimeout = setTimeout(() => {
+                box.classList.add('hidden');
+            }, 4500);
+        }
+
+        // Bucle de Micro-Fluctuaciones de Telemetría Realista SOTE
+        setInterval(() => {
+            if (!soteData.flowing || soteData.esdActive) return;
+
+            const jitter = () => (Math.random() * 2.6 - 1.3);
+            const activeSt = soteData.stations[soteData.activeStation];
+            if (activeSt && !soteData.surgeActive) {
+                const pvEl = document.getElementById('detail-pid-pv');
+                if (pvEl) {
+                    const base = activeSt.baseDis;
+                    pvEl.innerText = `${(base + jitter()).toFixed(1)} PSI`;
+                }
+            }
+        }, 1200);
+
+        // Inicializar bombas en movimiento y estación 1 por defecto
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            pipelineSelectStation(1);
+        });
+        // Si el DOM ya cargó:
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            pipelineSelectStation(1);
+        }
+
+    </script>
+</body>
+</html>
