@@ -5453,7 +5453,502 @@
 
         }
 
-    </script>
+    
+
+        // =========================================================================
+        // SCADA SOTE (SISTEMA DE OLEODUCTO TRANSECUATORIANO - 503 KM // 350K BPD)
+        // =========================================================================
+        const soteData = {
+            flowing: true,
+            flowRate: 350000, // 350,000 BPD
+            surgeActive: false,
+            esdActive: false,
+            pigActive: false,
+            pigProgress: 0.0,
+            activeStation: 1,
+            stations: {
+                1: {
+                    name: "01. ESTACIÓN LAGO AGRIO (CABECERA)",
+                    coords: "PK 0+000 // ELEV: 300 msnm // SUCUMBÍOS",
+                    badge: "ESTACIÓN DE BOMBEO // CABECERA ORIENTE",
+                    type: "bombeo",
+                    baseSuc: 45,
+                    baseDis: 1320,
+                    unitTitle: "BOMBAS BOOSTER & ALTA PRESIÓN",
+                    unitBadge: "3 x 2,000 HP",
+                    statusA: "OPERANDO (3,540 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.62 mm/s (Normal)",
+                    temp: "52.4 °C",
+                    pidTag: "FIC-101 / PIC-102",
+                    pidSP: "1,320 PSI",
+                    pidOut: "58.4 Hz (97.3%)",
+                    ot: "OT #88241 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-01 (Trimestral)"
+                },
+                2: {
+                    name: "02. ESTACIÓN LUMBAQUI",
+                    coords: "PK 65+000 // ELEV: 540 msnm // SUCUMBÍOS",
+                    badge: "ESTACIÓN DE BOMBEO // TRAMO AMAZÓNICO",
+                    type: "bombeo",
+                    baseSuc: 85,
+                    baseDis: 1350,
+                    unitTitle: "BOMBAS CENTRÍFUGAS MULTIETAPA",
+                    unitBadge: "2 x 2,000 HP",
+                    statusA: "OPERANDO (3,550 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.70 mm/s (Normal)",
+                    temp: "54.1 °C",
+                    pidTag: "PIC-201 / VFD-201",
+                    pidSP: "1,350 PSI",
+                    pidOut: "59.0 Hz (98.3%)",
+                    ot: "OT #88310 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-02 (Semestral)"
+                },
+                3: {
+                    name: "03. ESTACIÓN EL SALADO",
+                    coords: "PK 130+000 // ELEV: 1,300 msnm // NAPO",
+                    badge: "ESTACIÓN DE BOMBEO // ASCENSO ANDINO",
+                    type: "bombeo",
+                    baseSuc: 90,
+                    baseDis: 1380,
+                    unitTitle: "BOMBAS CENTRÍFUGAS DE ALTA PRESIÓN",
+                    unitBadge: "3 x 2,500 HP",
+                    statusA: "OPERANDO (3,570 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.75 mm/s (Normal)",
+                    temp: "55.8 °C",
+                    pidTag: "PIC-301 / VFD-301",
+                    pidSP: "1,380 PSI",
+                    pidOut: "59.4 Hz (99.0%)",
+                    ot: "OT #88125 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-03 (Trimestral)"
+                },
+                4: {
+                    name: "04. ESTACIÓN BAEZA",
+                    coords: "PK 180+000 // ELEV: 1,850 msnm // VALLE DE QUIJOS",
+                    badge: "ESTACIÓN DE BOMBEO // VALLE SUBANDINO",
+                    type: "bombeo",
+                    baseSuc: 105,
+                    baseDis: 1420,
+                    unitTitle: "BOMBAS IMPULSIÓN CORDILLERA",
+                    unitBadge: "3 x 2,500 HP",
+                    statusA: "OPERANDO (3,580 RPM)",
+                    statusB: "STANDBY AUTOMÁTICO",
+                    vibration: "1.82 mm/s (Normal)",
+                    temp: "53.2 °C",
+                    pidTag: "PIC-401 / VFD-401",
+                    pidSP: "1,420 PSI",
+                    pidOut: "59.8 Hz (99.6%)",
+                    ot: "OT #88204 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-04 (Trimestral)"
+                },
+                5: {
+                    name: "05. ESTACIÓN PAPALLACTA",
+                    coords: "PK 220+000 // ELEV: 3,150 msnm // PÁRAMO",
+                    badge: "ESTACIÓN DE BOMBEO // COTA CRÍTICA A GUAMANÍ (4,064m)",
+                    type: "bombeo",
+                    baseSuc: 120,
+                    baseDis: 1450,
+                    unitTitle: "BOMBAS DE ALTA PRESIÓN A CUMBRE",
+                    unitBadge: "4 x 2,500 HP",
+                    statusA: "OPERANDO (3,600 RPM)",
+                    statusB: "STANDBY CALEFACTADO",
+                    vibration: "1.88 mm/s (Normal)",
+                    temp: "51.0 °C",
+                    pidTag: "PIC-501 (DeltaV PID Anti-cavitación)",
+                    pidSP: "1,450 PSI",
+                    pidOut: "60.0 Hz (100.0%)",
+                    ot: "OT #88415 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-05 (Mensual)"
+                },
+                6: {
+                    name: "06. ESTACIÓN SAN JUAN (REDUCTORA 1)",
+                    coords: "PK 265+000 // ELEV: 3,200 msnm // PICHINCHA",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 1 // DISIPACIÓN",
+                    type: "reductora",
+                    baseSuc: 1200,
+                    baseDis: 450,
+                    unitTitle: "SKID DE VÁLVULAS REGULADORAS PRV",
+                    unitBadge: "DISIPACIÓN CONTROLADA",
+                    statusA: "VÁLVULA PRV-101 MODULANDO (42%)",
+                    statusB: "VÁLVULA PRV-102 EN BYPASS",
+                    vibration: "0.85 mm/s (Flujo laminar)",
+                    temp: "24.5 °C",
+                    pidTag: "PRV-601 (DeltaV Control de Presión)",
+                    pidSP: "450 PSI",
+                    pidOut: "Apertura 42.5%",
+                    ot: "OT #88019 (CERRADA)",
+                    plan: "MP-SOTE-RED-01 (Semestral)"
+                },
+                7: {
+                    name: "07. ESTACIÓN CHIRIBOGA (REDUCTORA 2)",
+                    coords: "PK 310+000 // ELEV: 1,900 msnm // CORDILLERA OCCIDENTAL",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 2 // DESCENSO",
+                    type: "reductora",
+                    baseSuc: 980,
+                    baseDis: 400,
+                    unitTitle: "SKID VÁLVULAS REGULADORAS PRV",
+                    unitBadge: "ALIVIO DE CARGA",
+                    statusA: "VÁLVULA PRV-201 MODULANDO (38%)",
+                    statusB: "VÁLVULA PRV-202 STANDBY",
+                    vibration: "0.78 mm/s",
+                    temp: "26.1 °C",
+                    pidTag: "PRV-701 (Lazo Reductor)",
+                    pidSP: "400 PSI",
+                    pidOut: "Apertura 38.2%",
+                    ot: "OT #87912 (CERRADA)",
+                    plan: "MP-SOTE-RED-02 (Semestral)"
+                },
+                8: {
+                    name: "08. ESTACIÓN LA PALMA (REDUCTORA 3)",
+                    coords: "PK 350+000 // ELEV: 1,150 msnm // SUBTROPICAL",
+                    badge: "ESTACIÓN REDUCTORA DE PRESIÓN 3",
+                    type: "reductora",
+                    baseSuc: 890,
+                    baseDis: 380,
+                    unitTitle: "SKID DISIPACIÓN DE ENERGÍA",
+                    unitBadge: "ORIFICIOS MULTIETAPA",
+                    statusA: "VÁLVULA PRV-301 ACTIVA (35%)",
+                    statusB: "VÁLVULA PRV-302 STANDBY",
+                    vibration: "0.72 mm/s",
+                    temp: "27.8 °C",
+                    pidTag: "PRV-801",
+                    pidSP: "380 PSI",
+                    pidOut: "Apertura 35.0%",
+                    ot: "OT #87844 (CERRADA)",
+                    plan: "MP-SOTE-RED-03 (Semestral)"
+                },
+                9: {
+                    name: "09. ESTACIÓN SANTO DOMINGO (REDUCTORA 4)",
+                    coords: "PK 395+000 // ELEV: 550 msnm // SANTO DOMINGO",
+                    badge: "ESTACIÓN REDUCTORA 4 // TRANSICIÓN A COSTA",
+                    type: "reductora",
+                    baseSuc: 750,
+                    baseDis: 280,
+                    unitTitle: "SKID REDUCTOR FINAL & FILTRADO",
+                    unitBadge: "CONTROL DE TRANSITORIOS",
+                    statusA: "VÁLVULA PRV-401 MODULANDO (32%)",
+                    statusB: "SKID SURGE RELIEF LISTO",
+                    vibration: "0.65 mm/s",
+                    temp: "29.4 °C",
+                    pidTag: "PRV-901",
+                    pidSP: "280 PSI",
+                    pidOut: "Apertura 32.1%",
+                    ot: "OT #88390 (CERRADA)",
+                    plan: "MP-SOTE-RED-04 (Semestral)"
+                },
+                10: {
+                    name: "10. ESTACIÓN QUININDÉ",
+                    coords: "PK 445+000 // ELEV: 100 msnm // ESMERALDAS",
+                    badge: "ESTACIÓN DE BOMBEO // RE-BOMBEO COSTA",
+                    type: "bombeo",
+                    baseSuc: 60,
+                    baseDis: 850,
+                    unitTitle: "BOMBAS CENTRÍFUGAS DE IMPULSO FINAL",
+                    unitBadge: "2 x 1,500 HP",
+                    statusA: "OPERANDO (3,520 RPM)",
+                    statusB: "LISTA EN ESPERA",
+                    vibration: "1.42 mm/s (Normal)",
+                    temp: "48.2 °C",
+                    pidTag: "PIC-1001 / VFD-1001",
+                    pidSP: "850 PSI",
+                    pidOut: "54.2 Hz (90.3%)",
+                    ot: "OT #88288 (CERRADA)",
+                    plan: "MP-SOTE-BOMB-06 (Trimestral)"
+                },
+                11: {
+                    name: "11. TERMINAL MARÍTIMO BALAO",
+                    coords: "PK 503+000 // ELEV: 15 msnm // ESMERALDAS",
+                    badge: "TERMINAL DE DESPACHO & EXPORTACIÓN MARÍTIMA",
+                    type: "terminal",
+                    baseSuc: 50,
+                    baseDis: 120,
+                    unitTitle: "BATERÍA DE TANQUES & MONOBOYAS",
+                    unitBadge: "TRANSFERENCIA FISCAL",
+                    statusA: "MANIFOLD DE DESPACHO ACTIVO",
+                    statusB: "TRAMPA RECEPTORA PIG LISTA",
+                    vibration: "0.55 mm/s (Óptimo)",
+                    temp: "31.2 °C",
+                    pidTag: "FIC-1101 (Medición Coriolis Fiscal)",
+                    pidSP: "350,000 BPD",
+                    pidOut: "Válvula Entrega 100%",
+                    ot: "OT #88490 (CERRADA - Fiscalización)",
+                    plan: "MP-SOTE-BALAO-01 (Anual)"
+                }
+            }
+        };
+
+        // Seleccionar Estación y Actualizar el Inspector SCADA
+        function pipelineSelectStation(stId) {
+            soteData.activeStation = stId;
+            const st = soteData.stations[stId];
+            if (!st) return;
+
+            // Actualizar botones de estación en la barra rápida
+            document.querySelectorAll('.st-btn').forEach((b, idx) => {
+                if (idx + 1 === stId) {
+                    b.classList.add('bg-cyan-500', 'text-slate-950', 'font-bold');
+                    b.classList.remove('bg-slate-900', 'text-slate-300');
+                } else {
+                    b.classList.remove('bg-cyan-500', 'text-slate-950', 'font-bold');
+                    b.classList.add('bg-slate-900', 'text-slate-300');
+                }
+            });
+
+            // Resaltar en SVG
+            for (let i = 1; i <= 11; i++) {
+                const node = document.getElementById(`station-node-${i}`);
+                if (node) {
+                    const rect = node.querySelector('rect');
+                    if (rect) {
+                        rect.setAttribute('stroke-width', i === stId ? '3' : (i === 5 || i === 11 ? '2' : '1.5'));
+                    }
+                }
+            }
+
+            document.getElementById('detail-title').innerText = st.name;
+            document.getElementById('detail-coords').innerText = st.coords;
+            document.getElementById('detail-badge').innerText = st.badge;
+            document.getElementById('detail-unit-title').innerText = st.unitTitle;
+            document.getElementById('detail-unit-badge').innerText = st.unitBadge;
+            document.getElementById('detail-pid-tag').innerText = st.pidTag;
+            document.getElementById('detail-pid-sp').innerText = st.pidSP;
+            document.getElementById('detail-ot-number').innerText = st.ot;
+            document.getElementById('detail-plan').innerText = st.plan;
+
+            const baseDis = soteData.esdActive ? 40 : (soteData.surgeActive && (stId === 5 || stId === 6) ? st.baseDis + 320 : st.baseDis);
+            document.getElementById('detail-pid-pv').innerText = `${baseDis.toFixed(1)} PSI`;
+            document.getElementById('detail-pid-out').innerText = soteData.esdActive ? '0.0% (Desconectado)' : st.pidOut;
+            document.getElementById('detail-vibration').innerText = soteData.esdActive ? '0.00 mm/s (Detenido)' : st.vibration;
+            document.getElementById('detail-winding-temp').innerText = st.temp;
+            document.getElementById('detail-pump-a-status').innerText = soteData.esdActive ? 'PARADA ESD' : st.statusA;
+            document.getElementById('detail-pump-a-status').className = soteData.esdActive ? 'text-red-400 font-bold' : 'text-emerald-400 font-bold';
+            document.getElementById('detail-pump-b-status').innerText = soteData.esdActive ? 'DESCONECTADO' : st.statusB;
+        }
+
+        // Conmutar Pausa y Marcha de Flujo
+        function pipelineToggleFlow() {
+            if (soteData.esdActive) {
+                soteData.esdActive = false;
+                soteData.flowing = true;
+                document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-xs font-mono text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                pipelineShowAlert("REINICIO SOTE // BOMBAS RESTABLECIDAS A CONSIGNAS SCADA", "cyan");
+            } else {
+                soteData.flowing = !soteData.flowing;
+            }
+
+            const btnText = document.getElementById('btn-flow-text');
+            const btnIcon = document.getElementById('btn-flow-icon');
+            const svg = document.getElementById('pipeline-svg');
+
+            if (soteData.flowing) {
+                btnText.innerText = "Pausar Flujo";
+                btnIcon.className = "fa-solid fa-pause";
+                if (svg) svg.classList.remove('pipeline-flow-paused');
+                document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            } else {
+                btnText.innerText = "Reanudar Flujo";
+                btnIcon.className = "fa-solid fa-play";
+                if (svg) svg.classList.add('pipeline-flow-paused');
+                document.getElementById('scada-status-pill').innerText = "SISTEMA PAUSADO // LAZOS EN ESPERA";
+                document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.remove('pump-running'));
+            }
+            pipelineSelectStation(soteData.activeStation);
+        }
+
+        // Modificar Caudal Diario (BPD)
+        function pipelineUpdateFlowRate(val) {
+            soteData.flowRate = parseInt(val) * 1000;
+            document.getElementById('telemetry-flow').innerText = (soteData.flowRate).toLocaleString();
+            document.getElementById('slider-val-readout').innerText = `${val}k BPD`;
+
+            const stream = document.getElementById('pipeline-flow-stream');
+            if (stream) {
+                const duration = (2.4 - ((val - 200) / 200) * 1.6).toFixed(2);
+                stream.style.animationDuration = `${duration}s`;
+            }
+        }
+
+        // Lanzamiento de Herramienta PIG Inteligente a lo largo de los 503 KM
+        function pipelineLaunchPIG() {
+            if (soteData.pigActive) {
+                pipelineShowAlert("HERRAMIENTA PIG YA ESTÁ EN TRÁNSITO INTERNO POR EL SOTE", "amber");
+                return;
+            }
+            if (!soteData.flowing) {
+                pipelineShowAlert("ATENCIÓN: EL OLEODUCTO DEBE ESTAR EN FLUJO PARA LANZAR PIG", "red");
+                return;
+            }
+
+            soteData.pigActive = true;
+            soteData.pigProgress = 0.0;
+            
+            const pigGroup = document.getElementById('pig-tool-group');
+            const path = document.getElementById('pipeline-fluid-channel');
+            if (!pigGroup || !path) return;
+
+            pigGroup.classList.remove('hidden');
+            document.getElementById('pig-status-pill').innerText = "EN TRÁNSITO MFL";
+            document.getElementById('pig-status-pill').className = "text-xs sm:text-sm font-bold text-purple-400 mt-1";
+            pipelineShowAlert("PIG LANZADO EN LAGO AGRIO (KM 0) // ESCANEO ULTRASÓNICO DE PARED ACTIVO", "purple");
+
+            const pathLength = path.getTotalLength();
+            const transitDuration = 20000; // 20s transit
+            const startTime = performance.now();
+
+            function stepPIG(now) {
+                if (!soteData.pigActive) return;
+
+                const elapsed = now - startTime;
+                soteData.pigProgress = Math.min(elapsed / transitDuration, 1.0);
+                
+                const currentDist = soteData.pigProgress * pathLength;
+                const pt = path.getPointAtLength(currentDist);
+
+                pigGroup.setAttribute('transform', `translate(${pt.x}, ${pt.y})`);
+
+                const currentKM = (soteData.pigProgress * 503.0).toFixed(1);
+                document.getElementById('pig-km-pill').innerText = `KM ${currentKM} / 503.0`;
+
+                // Avisos al pasar por puntos clave del SOTE
+                if (soteData.pigProgress > 0.12 && soteData.pigProgress < 0.14) {
+                    pipelineShowAlert("PIG PASANDO EB-02 LUMBAQUI (KM 65) // ESPESOR 12.7 mm [OK]", "cyan");
+                } else if (soteData.pigProgress > 0.25 && soteData.pigProgress < 0.27) {
+                    pipelineShowAlert("PIG EN EB-03 EL SALADO (KM 130) // PRESIÓN Y REGISTRO MAGNÉTICO OK", "cyan");
+                } else if (soteData.pigProgress > 0.35 && soteData.pigProgress < 0.37) {
+                    pipelineShowAlert("PIG EN EB-04 BAEZA (KM 180) // VELOCIDAD 2.8 m/s", "cyan");
+                } else if (soteData.pigProgress > 0.43 && soteData.pigProgress < 0.45) {
+                    pipelineShowAlert("PIG EN EB-05 PAPALLACTA (KM 220) // INICIANDO ASCENSO A GUAMANÍ", "amber");
+                } else if (soteData.pigProgress > 0.46 && soteData.pigProgress < 0.48) {
+                    pipelineShowAlert("PIG CRUZANDO CUMBRE DE GUAMANÍ (4,064 msnm) // INTEGRIDAD 100%", "amber");
+                } else if (soteData.pigProgress > 0.52 && soteData.pigProgress < 0.54) {
+                    pipelineShowAlert("PIG EN ER-01 SAN JUAN // ENTRANDO A TRAMO REDUCTOR", "cyan");
+                } else if (soteData.pigProgress > 0.61 && soteData.pigProgress < 0.63) {
+                    pipelineShowAlert("PIG PASANDO ER-02 CHIRIBOGA (KM 310)", "cyan");
+                } else if (soteData.pigProgress > 0.69 && soteData.pigProgress < 0.71) {
+                    pipelineShowAlert("PIG PASANDO ER-03 LA PALMA (KM 350)", "cyan");
+                } else if (soteData.pigProgress > 0.78 && soteData.pigProgress < 0.80) {
+                    pipelineShowAlert("PIG PASANDO ER-04 SANTO DOMINGO (KM 395)", "cyan");
+                } else if (soteData.pigProgress > 0.88 && soteData.pigProgress < 0.90) {
+                    pipelineShowAlert("PIG PASANDO EB-06 QUININDÉ (KM 445) // TRAMO FINAL A BALAO", "cyan");
+                }
+
+                if (soteData.pigProgress < 1.0 && soteData.flowing) {
+                    requestAnimationFrame(stepPIG);
+                } else if (soteData.pigProgress >= 1.0) {
+                    pigGroup.classList.add('hidden');
+                    soteData.pigActive = false;
+                    document.getElementById('pig-status-pill').innerText = "RECIBIDO EN BALAO";
+                    document.getElementById('pig-status-pill').className = "text-xs sm:text-sm font-bold text-emerald-400 mt-1";
+                    pipelineShowAlert("¡PIG RECIBIDO EN TRAMPA DE BALAO (KM 503)! // INSPECCIÓN MFL COMPLETADA // 0 ANOMALÍAS", "emerald");
+                }
+            }
+
+            requestAnimationFrame(stepPIG);
+        }
+
+        // Simulación de Golpe de Ariete (Surge Event en tramo reductor)
+        function pipelineSimulateSurge() {
+            if (soteData.surgeActive || soteData.esdActive) return;
+
+            soteData.surgeActive = true;
+            const stream = document.getElementById('pipeline-flow-stream');
+            if (stream) stream.classList.add('pipeline-surge-active');
+
+            pipelineShowAlert("¡GOLPE DE ARIETE EN ER-01 SAN JUAN! VÁLVULA DE ALIVIO SURGE ACTUANDO", "red");
+            document.getElementById('scada-status-pill').innerText = "TRANSITORIO HIDRÁULICO SOTE // ALIVIO SURGE ACTIVADO";
+            document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-950/80 border border-red-500/50 text-xs font-mono text-red-400 animate-pulse";
+
+            document.getElementById('telemetry-max-pres').innerText = "1,680";
+
+            setTimeout(() => {
+                if (!soteData.esdActive) {
+                    if (stream) stream.classList.remove('pipeline-surge-active');
+                    soteData.surgeActive = false;
+                    document.getElementById('scada-status-pill').innerText = "SCADA SOTE EN LÍNEA // OPERACIÓN 350K BPD";
+                    document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/40 text-xs font-mono text-emerald-400 shadow-[0_0_15px_rgba(16,185,129,0.25)]";
+                    pipelineShowAlert("DCS DeltaV SOTE: VÁLVULAS DE ALIVIO AMORTIGUARON ONDA // PRESIÓN NORMALIZADA", "emerald");
+                    pipelineSelectStation(soteData.activeStation);
+                }
+            }, 4000);
+        }
+
+        // Parada de Emergencia ESD del SOTE
+        function pipelineEmergencyStop() {
+            soteData.esdActive = true;
+            soteData.flowing = false;
+            soteData.surgeActive = false;
+            
+            const svg = document.getElementById('pipeline-svg');
+            if (svg) svg.classList.add('pipeline-flow-paused');
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.remove('pump-running'));
+
+            document.getElementById('btn-flow-text').innerText = "Restablecer SOTE";
+            document.getElementById('btn-flow-icon').className = "fa-solid fa-rotate-left";
+
+            document.getElementById('scada-status-pill').innerText = "PARADA ESD SOTE // LÍNEA AISLADA";
+            document.getElementById('scada-status-pill').parentElement.className = "inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-red-950/90 border border-red-500 text-xs font-mono text-red-400 font-bold";
+
+            pipelineShowAlert("PARADA DE EMERGENCIA ESD EN TODO EL SOTE // BOMBAS DESCONECTADAS // SDV CERRADAS", "red");
+            
+            document.getElementById('telemetry-max-pres').innerText = "90";
+            document.getElementById('telemetry-flow').innerText = "0";
+
+            pipelineSelectStation(soteData.activeStation);
+        }
+
+        // Notificaciones Flotantes
+        function pipelineShowAlert(msg, color) {
+            const box = document.getElementById('pipeline-alert-box');
+            const txt = document.getElementById('pipeline-alert-msg');
+            if (!box || !txt) return;
+
+            txt.innerText = msg;
+            let colorClasses = "bg-cyan-950/90 border-cyan-500/60 text-cyan-300";
+            if (color === "amber") colorClasses = "bg-amber-950/90 border-amber-500/60 text-amber-300";
+            if (color === "purple") colorClasses = "bg-purple-950/90 border-purple-500/60 text-purple-300";
+            if (color === "red") colorClasses = "bg-red-950/90 border-red-500/60 text-red-300 font-bold";
+            if (color === "emerald") colorClasses = "bg-emerald-950/90 border-emerald-500/60 text-emerald-300 font-bold";
+
+            box.className = `absolute top-4 left-1/2 -translate-x-1/2 z-30 px-4 py-2 rounded-lg text-xs font-mono border backdrop-blur-md shadow-2xl transition-all duration-300 ${colorClasses}`;
+            box.classList.remove('hidden');
+
+            clearTimeout(window.pipelineAlertTimeout);
+            window.pipelineAlertTimeout = setTimeout(() => {
+                box.classList.add('hidden');
+            }, 4500);
+        }
+
+        // Bucle de Micro-Fluctuaciones de Telemetría Realista SOTE
+        setInterval(() => {
+            if (!soteData.flowing || soteData.esdActive) return;
+
+            const jitter = () => (Math.random() * 2.6 - 1.3);
+            const activeSt = soteData.stations[soteData.activeStation];
+            if (activeSt && !soteData.surgeActive) {
+                const pvEl = document.getElementById('detail-pid-pv');
+                if (pvEl) {
+                    const base = activeSt.baseDis;
+                    pvEl.innerText = `${(base + jitter()).toFixed(1)} PSI`;
+                }
+            }
+        }, 1200);
+
+        // Inicializar bombas en movimiento y estación 1 por defecto
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            pipelineSelectStation(1);
+        });
+        // Si el DOM ya cargó:
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+            document.querySelectorAll('.pump-impeller').forEach(el => el.parentElement.classList.add('pump-running'));
+            pipelineSelectStation(1);
+        }
+
+</script>
 
 
     <!-- Floating Quick Shortcut to Oleoducto SCADA -->
